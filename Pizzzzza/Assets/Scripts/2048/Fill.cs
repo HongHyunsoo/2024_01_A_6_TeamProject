@@ -8,23 +8,13 @@ public class Fill : MonoBehaviour
 
     public int value;
     public int level;
-    
+
     Animator Topping_animater;
     [SerializeField] float speed; //합쳐지는 속도 
 
     bool hasCombine;
 
-    void OnEnable()
-    {
-        //Topping_animater.SetInteger("Value", level);
-    }
-
-    private void OnDisable()
-    {
-        //동글 속성 초기화
-        
-      
-    }
+   
     public void FillValueUpdate(int valueIn)
     {
         value = valueIn;
@@ -35,7 +25,12 @@ public class Fill : MonoBehaviour
         GetComponent<Fill>();
         Topping_animater = GetComponent<Animator>();
     }
-    
+
+    private void OnEnable()
+    {
+        Topping_animater.SetInteger("Value", level);
+    }
+
     private void Update()
     {
         if (transform.localPosition != Vector3.zero)
@@ -57,8 +52,7 @@ public class Fill : MonoBehaviour
     {
         
         value *= 2;
-        //Topping_animater.SetInteger("Value", level = value);
-
-        //Topping_animater.SetInteger("Value", value);
+        Topping_animater.SetInteger("Value", level = value);
+        
     }
 }

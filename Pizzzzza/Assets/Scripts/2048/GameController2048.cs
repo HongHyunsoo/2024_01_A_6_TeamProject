@@ -59,12 +59,12 @@ public class GameController2048 : MonoBehaviour
             allCells[whichSpawn].GetComponent<Cells>().fill = tempFillComp;
             tempFillComp.FillValueUpdate(2);
         }
-        else
-        {
-            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
-            Fill tempFillComp = tempFill.GetComponent<Fill>();
-            allCells[whichSpawn].GetComponent<Cells>().fill = tempFillComp;
-            tempFillComp.FillValueUpdate(4);
-        }
+        //else
+        //{
+          //  GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn]);
+          //Fill tempFillComp = tempFill.GetComponent<Fill>();
+          //  allCells[whichSpawn].GetComponent<Cells>().fill = tempFillComp;
+          //  tempFillComp.FillValueUpdate(4);
+        //}
     }
 }

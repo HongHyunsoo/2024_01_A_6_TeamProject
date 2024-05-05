@@ -171,14 +171,14 @@ public class Cells : MonoBehaviour
     void SlideLeft(Cells currentCell)
     {
         if (currentCell.right == null)
-        
+
             return;
-        
+
         Debug.Log(currentCell.gameObject);
         if (currentCell.fill != null)
         {
             Cells nextCell = currentCell.right;
-            while (nextCell.down != null && nextCell.fill == null)
+            while (nextCell.right != null && nextCell.fill == null)
             {
                 nextCell = nextCell.right;
             }
@@ -191,10 +191,10 @@ public class Cells : MonoBehaviour
                     currentCell.fill = nextCell.fill;
                     nextCell.fill = null;
                 }
-                else if(currentCell.right.fill != nextCell.fill)
+                else if (currentCell.right.fill != nextCell.fill)
                 {
                     Debug.Log("Not Doubled");
-                    nextCell.fill.transform.parent = currentCell.down.transform;
+                    nextCell.fill.transform.parent = currentCell.right.transform;
                     currentCell.right.fill = nextCell.fill;
                     nextCell.fill = null;
                 }
@@ -219,7 +219,7 @@ public class Cells : MonoBehaviour
 
         if (currentCell.right == null)
             return;
-        SlideLeft(currentCell.down);
+        SlideLeft(currentCell.right);
 
     }
 
