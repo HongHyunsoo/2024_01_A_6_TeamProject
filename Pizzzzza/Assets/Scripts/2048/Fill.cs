@@ -22,12 +22,8 @@ public class Fill : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Fill>();
+        //GetComponent<Fill>();
         Topping_animater = GetComponent<Animator>();
-    }
-
-    private void OnEnable()
-    {
         Topping_animater.SetInteger("Value", level);
     }
 
@@ -52,6 +48,7 @@ public class Fill : MonoBehaviour
     {
         
         value *= 2;
+        GameController2048.instance.ScoreUpdate(value);
         Topping_animater.SetInteger("Value", level = value);
         
     }

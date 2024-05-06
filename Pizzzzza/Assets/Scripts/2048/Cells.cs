@@ -49,9 +49,15 @@ public class Cells : MonoBehaviour
             Cells currentCell = this;
             SlideRight(currentCell);
         }
+
+        GameController2048.ticker++;
+        if(GameController2048.ticker == 4)
+        {
+            GameController2048.instance.SpawnFill();
+        }
     }
 
-    void SlideUp(Cells currentCell)
+    void SlideUp(Cells currentCell) 
     {
         if (currentCell.down == null)
         
@@ -69,7 +75,7 @@ public class Cells : MonoBehaviour
             {
                 if (currentCell.fill.value == nextCell.fill.value)   //나와 상대의 값이 같다면
                 {
-                    nextCell.fill.Double();
+                    nextCell.fill.Double(); //값을 합치기
                     nextCell.fill.transform.parent = currentCell.transform;
                     currentCell.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -124,9 +130,9 @@ public class Cells : MonoBehaviour
             {
                 nextCell = nextCell.up;
             }
-            if (nextCell.fill != null)   //만약 다음 셀이 비어있지 않다면
+            if (nextCell.fill != null)  
             {
-                if (currentCell.fill.value == nextCell.fill.value)   //나와 상대의 값이 같다면
+                if (currentCell.fill.value == nextCell.fill.value)  
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
@@ -182,9 +188,9 @@ public class Cells : MonoBehaviour
             {
                 nextCell = nextCell.right;
             }
-            if (nextCell.fill != null)   //만약 다음 셀이 비어있지 않다면
+            if (nextCell.fill != null)   
             {
-                if (currentCell.fill.value == nextCell.fill.value)   //나와 상대의 값이 같다면
+                if (currentCell.fill.value == nextCell.fill.value)   
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
@@ -241,16 +247,16 @@ public class Cells : MonoBehaviour
             {
                 nextCell = nextCell.left;
             }
-            if (nextCell.fill != null)   //만약 다음 셀이 비어있지 않다면
+            if (nextCell.fill != null) 
             {
-                if (currentCell.fill.value == nextCell.fill.value)   //나와 상대의 값이 같다면
+                if (currentCell.fill.value == nextCell.fill.value)   
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
                     currentCell.fill = nextCell.fill;
                     nextCell.fill = null;
                 }
-                else if(currentCell.left.fill != nextCell.fill)
+                else if(currentCell.left.fill != nextCell.fill)    
                 {
                     Debug.Log("Not Doubled");
                     nextCell.fill.transform.parent = currentCell.left.transform;
