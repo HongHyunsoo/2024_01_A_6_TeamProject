@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameController2048 : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class GameController2048 : MonoBehaviour
 
     [SerializeField] GameObject fillPrefab;     //ÅäÇÎ ÇÁ·¹ÆéÀ¸·Î ¼¿ Ã¼¿ì±â
     [SerializeField] Cells[] allCells;      //¸ðµç ¼¿
-    [SerializeField] Text scoreDisplay;
+    [SerializeField] Text scoreDisplay;     
 
     public static Action<string> slide;
-    public int myScore;
+    public static int myScore;
 
-    int isGameOver;
+    int gameOver;
     [SerializeField] GameObject gameOverPanel;
+
 
 
     void Start()
@@ -46,25 +48,25 @@ public class GameController2048 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             ticker = 0;
-            isGameOver = 0;
+            gameOver = 0;
             slide("w");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             ticker = 0;
-            isGameOver = 0;
+            gameOver = 0;
             slide("s");
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             ticker = 0;
-            isGameOver = 0;
+            gameOver = 0;
             slide("a");
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             ticker = 0;
-            isGameOver = 0;
+            gameOver = 0;
             slide("d");
         }
 
@@ -142,16 +144,18 @@ public class GameController2048 : MonoBehaviour
 
     public void GameOverCheck()
     {
-        isGameOver++;
-        if(isGameOver >= 16)
+        gameOver++;
+        if(gameOver >= 16)
         {
             gameOverPanel.SetActive(true);
+            OrderSystenManager.isGameOver = true;
         }
     }
 
     public void ToOrderScene()
     {
         SceneManager.LoadScene(1);
+        
     }
 
     
