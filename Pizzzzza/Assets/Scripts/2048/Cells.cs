@@ -84,7 +84,6 @@ public class Cells : MonoBehaviour
                 }
                 else if(currentCell.down.fill != nextCell.fill)
                 {
-                    Debug.Log("Not Doubled");
                     nextCell.fill.transform.parent = currentCell.down.transform;
                     currentCell.down.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -104,7 +103,6 @@ public class Cells : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideUp(currentCell);
-                Debug.Log("Slide to Empty");
             }
         }
 
@@ -143,7 +141,6 @@ public class Cells : MonoBehaviour
                 }
                 else if (currentCell.up.fill != nextCell.fill)
                 {
-                    Debug.Log("Not Doubled");
                     nextCell.fill.transform.parent = currentCell.up.transform;
                     currentCell.up.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -163,7 +160,6 @@ public class Cells : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideDown(currentCell);
-                Debug.Log("Slide to Empty");
             }
         }
 

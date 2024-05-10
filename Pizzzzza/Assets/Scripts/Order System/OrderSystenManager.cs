@@ -7,37 +7,65 @@ using UnityEngine.UI;
 public class OrderSystenManager : MonoBehaviour
 {
     public static int day; //일차
-    public int orderLevel; //손님의 주문 난이도
-    public static int orderValue;   //피자의 값
+    public static int dayCount; //일차를 넘어갈 때 얼마만큼의 손님을 받아야 넘어갈 건지
+    public static int orderCount;   //현재 일차에서 지금까지 내가 받은 손님의 수  
+    public static int orderLevel; //손님의 주문 난이도
+    public static int orderValue;   //손님이 요구하는 피자의 값어치
+    public static int star;     //가게의 평점
+    public static int maxStar = 10;     //가게의 최대 평점
+
     public bool isCustomerHere; //화면에 손님이 존재하는지
-    public static bool isGameOver;
+    public static bool isGameOver;  //요리 씬에서 게임 오버 상태인지
 
     public GameObject orderGroup;   //주문을 할 때 필요한 UI그룹
-    public GameObject orderButten;
-    public GameObject nextOrderButten;
+    public GameObject orderButten;  //주문을 받을 때의 버튼
+    public GameObject nextOrderButten;  //다음 손님을 받을 때의 버튼
+    public GameObject nextDayGroup;     //다음 날로 넘어갈 때 UI
+
     public Text valueDisplay;       //손님의 대사를 출력하는 텍스트
+    public Text dayText;            //현재 일차를 출력하는 텍스트
+    public Text dayTextTitle;            //현재 일차를 출력하는 텍스트 
+    public Text orderCountText;     //지금까지 주문 받은 수와, 목표치 표시
 
 
     public GameObject customerPrefab;   //손님의 프리팹
     public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
-    void Start()
+    public void Start()
     {
-        isCustomerHere = false; // 손님 존재 여부 false
-        day = 1;    //시작 시 일차를 1로 설정
+
+        nextDayGroup.SetActive(false);
+        
+
 
         //만약 게임 오버 상태라면 요리 끝 로직으로
         if (isGameOver == true)
         {
             Debug.Log("게임 오버 투르 됨");
+            LevelSetting();
+
             CookingFinish();
+
         }
         //만약 게임 오버 상태가 아니라면 첫 손님 생성
         else
         {
+            day = 1;    //시작 시 일차를 1로 설정
+            isCustomerHere = false; // 손님 존재 여부 false
+            star = 5; //평점의 초기 값을 5로 설정
+
+            LevelSetting();
+
             Invoke("MakeCustomer", 1.5f);   //1.5초 뒤에 첫 손님을 생성하기
         }
 
+
+    }
+
+    private void Update()
+    {
+        dayText.text = "Day " + day.ToString();
+        orderCountText.text = orderCount + " / " + dayCount.ToString();
     }
 
 
@@ -45,13 +73,59 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
-            orderValue = Random.Range(10000, 20000);     //50~200사이에서 렌덤으로 주문 할 피자 값어치를 정한다
+            orderValue = Random.Range(100, 500);     //50~200사이에서 렌덤으로 주문 할 피자 값어치를 정한다
         }
 
-        if (orderLevel == 1)      //만약 orderLevel이 0이면
+        else if (orderLevel == 1)      
         {
-            orderValue = Random.Range(200, 400);     //200~400사이에서 렌덤으로 주문 할 피자 값어치를 정한다
+            orderValue = Random.Range(500, 2000);     
         }
+
+        else if (orderLevel == 2)      
+        {
+            orderValue = Random.Range(2000, 4000);    
+        }
+
+        else if (orderLevel == 3)     
+        {
+            orderValue = Random.Range(4000, 10000);     
+        }
+
+        else if (orderLevel == 4)      
+        {
+            orderValue = Random.Range(10000, 20000);     
+        }
+
+        else if (orderLevel == 5)     
+        {
+            orderValue = Random.Range(20000, 40000);    
+        }
+
+        else if (orderLevel == 6)      
+        {
+            orderValue = Random.Range(40000, 50000);     
+        }
+
+        else if (orderLevel == 7)      
+        {
+            orderValue = Random.Range(50000, 60000);    
+        }
+
+        else if (orderLevel == 8)     
+        {
+            orderValue = Random.Range(13500, 15000);     
+        }
+
+        else if (orderLevel == 9)      
+        {
+            orderValue = Random.Range(14500, 16000);     
+        }
+        
+        else if (orderLevel == 10)
+        {
+            orderValue = Random.Range(14500, 16000);
+        }
+
 
     }
 
@@ -59,35 +133,92 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (isCustomerHere == true)     //손님이 화면에 있다면
         {
-            valueDisplay.text = "$ " + orderValue.ToString();   //말풍선에 값 출력하기
+            valueDisplay.text = "$ " + orderValue.ToString();   
+            //말풍선에 손님이 요구하는 값 출력하기
         }
     }
-    void LevelSetting()
+    void LevelSetting()  //일차에 따른 주문 난이도 설정
     {
-        if (day == 1)
+        if (day == 1)   //1일차 거나 2일차 라면
         {
-            orderLevel = 0;
+            orderLevel = 0; //주문 난이도를 0으로
+            dayCount = Random.Range(1, 2);
+            //다음 일차로 넘어가기 위해 받아야 하는 손님의 수를 2~3 사이에서 랜덤으로 설정
         }
+        else if (day == 2 || day == 3)
+        {
+            orderLevel = 1;
+            dayCount = Random.Range(2, 4);
+        }
+
     }
-    public void NextCustomer() //다음 손님 생성
+    
+    public void NextOrder() //다음 주문
     {
-        
-         Invoke("MakeCustomer", 1.5f);    //1.5초 뒤에 첫 손님을 생성하기
-        
+        orderCount++;   //받은 주문 카운트 +1
+        if (orderCount == dayCount)
+        {
+            NextDay();      //다음 날 로직 실행헤서 조건 충족 시 다음날로
+        }
+        else if(orderCount < dayCount)  
+        //내가 지금까지 받은 손님의 수가 다음 일차 조건보다 낮을 경우
+        {
+            orderButten.SetActive(false);
+            nextOrderButten.SetActive(false);
+            orderGroup.SetActive(false);
+            Invoke("MakeCustomer", 1.5f);   
+        }
         
     }
 
-    public void CookingFinish()
+    public void NextDay()
     {
-        if(isGameOver == true)
+        if(orderCount == dayCount)  
+        //지금까지 내가 받은 손님의 수가 다음 일차로 넘어가기 위한 손님의 수를 충족한다면
         {
-            if(GameController2048.myScore < orderValue)
+            day++;  //일차에 +1
+            dayText.text = "Day " + day.ToString();
+            orderCount = 0;
+            orderButten.SetActive(false);
+            nextOrderButten.SetActive(false);
+            orderGroup.SetActive(false);
+
+            nextDayGroup.SetActive(true);
+            dayTextTitle.text = "Day " + day.ToString();
+
+            Debug.Log(day);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void NextDayButten()
+    {
+        nextDayGroup.SetActive(false);
+
+        LevelSetting();
+        Invoke("MakeCustomer", 1.5f);
+    }
+
+    public void CookingFinish()     //요리가 끝난 후에 실행
+    {
+        if(isGameOver == true)  //요리 씬에서 게임 오버 된 것이 True라면
+        {
+            if(GameController2048.myScore < orderValue)  
+            //만약 플레이어의 점수가 손님이 요구하는 점수보다 낮다면
             {
-                valueDisplay.text = ":(".ToString();
+                valueDisplay.text = ":(".ToString();    //:( 출력
+                star -= 2;  //평점 2점 감소
+                Debug.Log(star);
             }
             else if(GameController2048.myScore >= orderValue)
+            //만약 플레이어의 점수가 손님이 요구하는 점수보다 높거나 같다면
             {
-                valueDisplay.text = ":)".ToString();
+                valueDisplay.text = ":)".ToString();    //:) 출력
+                star++;     //평점 1점 증가
+                Debug.Log(star);
             }
     
         }
@@ -97,11 +228,13 @@ public class OrderSystenManager : MonoBehaviour
 
     }
 
-    public void DeleteCustomer()
+    public void DeleteCustomer()    //현재 손님을 지우고 다음 손님을 받는 로직
     {
         //Destroy(customerPrefab);
-        isGameOver = false;
-        orderButten.SetActive(false);
+        isGameOver = false;     //게임 오버 여부 초기화
+
+        //버튼과 ui 그룹 비활성화
+        orderButten.SetActive(false);   
         nextOrderButten.SetActive(false);
         orderGroup.SetActive(false);
     }
@@ -125,6 +258,6 @@ public class OrderSystenManager : MonoBehaviour
     
     public void ToCookginScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

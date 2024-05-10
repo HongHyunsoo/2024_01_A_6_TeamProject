@@ -13,7 +13,7 @@ public class Customer : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
     }
     // Start is called before the first frame updates
     void Start()

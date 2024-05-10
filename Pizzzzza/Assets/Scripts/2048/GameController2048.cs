@@ -25,6 +25,7 @@ public class GameController2048 : MonoBehaviour
 
     void Start()
     {
+        myScore = 0;
         //시작할 때 셀에 2값을 가진 토핑 2개 생성
         StartSpawnFill();
         StartSpawnFill();
@@ -154,7 +155,7 @@ public class GameController2048 : MonoBehaviour
 
     public void ToOrderScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
         
     }
 
