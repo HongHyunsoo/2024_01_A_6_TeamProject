@@ -13,10 +13,12 @@ public class GameController2048 : MonoBehaviour
 
     [SerializeField] GameObject fillPrefab;     //토핑 프레펩으로 셀 체우기
     [SerializeField] Cells[] allCells;      //모든 셀
-    [SerializeField] Text scoreDisplay;     
+    [SerializeField] Text scoreDisplay;     // 점수 표시
+    [SerializeField] Text goalScoreDisplay; //목표 점수 표시
 
     public static Action<string> slide;
-    public static int myScore;
+    public static int myScore;  //점수 값
+    public GameObject finishOrder;
 
     int gameOver;
     [SerializeField] GameObject gameOverPanel;
@@ -25,6 +27,9 @@ public class GameController2048 : MonoBehaviour
 
     void Start()
     {
+        goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
+        OrderSystenManager.isNextDay = false;
+
         myScore = 0;
         //시작할 때 셀에 2값을 가진 토핑 2개 생성
         StartSpawnFill();
@@ -39,8 +44,19 @@ public class GameController2048 : MonoBehaviour
         }
     }
 
+    public void FinishOrder()
+    {
+        OrderSystenManager.isGameOver = true;
+        SceneManager.LoadScene(0);
+    }
+
     void Update()
     {
+
+        if(myScore >= OrderSystenManager.orderValue)
+        {
+            finishOrder.SetActive(true);
+        }
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -70,6 +86,8 @@ public class GameController2048 : MonoBehaviour
             gameOver = 0;
             slide("d");
         }
+
+
 
     }
 
@@ -125,7 +143,6 @@ public class GameController2048 : MonoBehaviour
         int whichSpawn = UnityEngine.Random.Range(0, allCells.Length);  //랜덤한 셀에 토핑 생성
         if (allCells[whichSpawn].transform.childCount != 0)
         {
-            Debug.Log(allCells[whichSpawn].name + "Is Altrady filled");
             SpawnFill();
             return;
         }

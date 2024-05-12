@@ -10,11 +10,7 @@ public class Customer : MonoBehaviour
     GameController2048 gameController2048;
     OrderSystenManager orderSystenManager;
 
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
+   
     // Start is called before the first frame updates
     void Start()
     {

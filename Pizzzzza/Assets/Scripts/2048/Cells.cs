@@ -122,7 +122,6 @@ public class Cells : MonoBehaviour
         
             return;
         
-        Debug.Log(currentCell.gameObject);
         if (currentCell.fill != null)
         {
             Cells nextCell = currentCell.up;
@@ -178,7 +177,6 @@ public class Cells : MonoBehaviour
 
             return;
 
-        Debug.Log(currentCell.gameObject);
         if (currentCell.fill != null)
         {
             Cells nextCell = currentCell.right;
@@ -197,7 +195,6 @@ public class Cells : MonoBehaviour
                 }
                 else if (currentCell.right.fill != nextCell.fill)
                 {
-                    Debug.Log("Not Doubled");
                     nextCell.fill.transform.parent = currentCell.right.transform;
                     currentCell.right.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -217,7 +214,6 @@ public class Cells : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideLeft(currentCell);
-                Debug.Log("Slide to Empty");
             }
         }
 
@@ -237,7 +233,6 @@ public class Cells : MonoBehaviour
         
             return;
         
-        Debug.Log(currentCell.gameObject);
         if (currentCell.fill != null)
         {
             Cells nextCell = currentCell.left;
@@ -256,7 +251,6 @@ public class Cells : MonoBehaviour
                 }
                 else if(currentCell.left.fill != nextCell.fill)    
                 {
-                    Debug.Log("Not Doubled");
                     nextCell.fill.transform.parent = currentCell.left.transform;
                     currentCell.left.fill = nextCell.fill;
                     nextCell.fill = null;
@@ -276,7 +270,6 @@ public class Cells : MonoBehaviour
                 currentCell.fill = nextCell.fill;
                 nextCell.fill = null;
                 SlideRight(currentCell);
-                Debug.Log("Slide to Empty");
             }
         }
 
