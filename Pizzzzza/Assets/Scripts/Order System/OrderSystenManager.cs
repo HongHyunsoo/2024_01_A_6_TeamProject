@@ -36,11 +36,43 @@ public class OrderSystenManager : MonoBehaviour
     public Text orderCountText;     //지금까지 주문 받은 수와, 목표치 표시
     public Text starText;           //현재 평점을 표시
 
-
     [Header("---------------------[ prefab ]")]
 
     public GameObject customerPrefab;   //손님의 프리팹
     public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
+
+
+
+
+    private string[] orderFailedArray = 
+        { "이렇게 나오시면 피자 대신 당신의 머리를 먹어버리는 수가 있습니다;;", //0
+          "그냥 햄버거 먹을 걸...",
+          "제가 진짜 피자에 대해서 잘 몰라서 그러는데, 이거 피자 맞죠?",
+          "이럴 줄 알았으면 옆집 프레디네 피자가게 갔지",
+          "아... ...",
+          "이러시면 국제 피자 법률 위반으로 잡혀가실 수도 있습니다. 조심하세요.", //5
+          "피자 이렇게 만드는 거 아닌데.",
+          "여기가 이탈리아가 아닌 걸 다행으로 여기세요.",
+          "혹시 가게 망하면 저한테 말해주세요. 최근에 피자가게 창업 준비중이었어서 ㅎㅎ",
+          "피자에 깔려있는 빨간 토마토 소스가 붉은 핏자국으로 바뀔 수도.",
+          "혹시 무슨 생각하면서 만드신 건가요? 진짜 그냥 궁금해서.", //10
+    };
+
+    private string[] orderSuccessArray =
+        { "우왕 맛있겠다. 감사합니다", //0
+          "햄버거랑 피자랑 고민했는데 피자 고르길 잘 한 거 같아요!",
+          "아주 나이스~",
+          "맛있는 피자~ 게살 피자~",
+          "피자한테 사랑받고 계시는 군요.",
+          "다이어트 하려고 했는데 다 망했다~", //5
+          "피자조아피자조아피자조아피자조아피자조아피자조아피자조아피자조아",
+          "피자가 네모난게 신기하네요",
+          "오늘 꿈에서도 피자 먹었는데!",
+          "다음에 또 올게요!",
+          "살인 사건 한 번쯤 나도 이 집은 장사 잘 될 듯",//10
+    };
+
+
 
     public void Start()
     {
@@ -140,7 +172,7 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (isCustomerHere == true)     //손님이 화면에 있다면
         {
-            valueDisplay.text = "$ " + orderValue.ToString();   
+            valueDisplay.text = "$ " + orderValue.ToString();
             //말풍선에 손님이 요구하는 값 출력하기
         }
     }
@@ -229,15 +261,15 @@ public class OrderSystenManager : MonoBehaviour
             if(GameController2048.myScore < orderValue)  
             //만약 플레이어의 점수가 손님이 요구하는 점수보다 낮다면
             {
-                valueDisplay.text = ":(".ToString();    //:( 출력
+                valueDisplay.text = orderFailedArray[Random.Range(0, 10)].ToString();    //:( 출력
                 star -= 1f;  //평점 1점 감소
                 Debug.Log(star);
             }
             else if(GameController2048.myScore >= orderValue)
             //만약 플레이어의 점수가 손님이 요구하는 점수보다 높거나 같다면
             {
-                valueDisplay.text = ":)".ToString();    //:) 출력
-                if(star == 5)
+                valueDisplay.text = orderSuccessArray[Random.Range(0, 10)].ToString();   //:) 출력
+                if (star == 5)
                 {
                     return;
                 }
