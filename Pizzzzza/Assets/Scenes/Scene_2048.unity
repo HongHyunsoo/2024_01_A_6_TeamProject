@@ -471,7 +471,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Game Over
+  m_Text: Order Failed
 --- !u!222 &89222399
 CanvasRenderer:
   m_ObjectHideFlags: 0
