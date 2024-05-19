@@ -12,10 +12,11 @@ public class OrderSystenManager : MonoBehaviour
     public static int orderCount;   //현재 일차에서 지금까지 내가 받은 손님의 수  
     public static int orderLevel; //손님의 주문 난이도
     public static int orderValue;   //손님이 요구하는 피자의 값어치
+    public static int customerNumber;      //손님의 번호
     public static float star;     //가게의 평점
 
 
-    public bool isCustomerHere; //화면에 손님이 존재하는지
+    public static bool isCustomerHere; //화면에 손님이 존재하는지
     public static bool isGameOver;   //요리가 끝난 상태인지
     public static bool isNextDay; //일차를 넘어간 후 일차 난이도에 대해 설정을 해야하는 상태인지
 
@@ -24,58 +25,34 @@ public class OrderSystenManager : MonoBehaviour
 
     public GameObject orderGroup;   //주문을 할 때 필요한 UI그룹
     public GameObject orderButten;  //주문을 받을 때의 버튼
+    public GameObject customerGroup;    //손님을 할당하는 그룹
     public GameObject nextOrderButten;  //다음 손님을 받을 때의 버튼
     public GameObject nextDayGroup;     //다음 날로 넘어갈 때 UI
 
 
     [Header("---------------------[ Text ]")]
 
+    public Text orderValueText;     //손님이 요구하는 값을 출력하는 텍스트
+    public Text orderResultText;    //내가 받은 값을 출력하는 텍스트
     public Text valueDisplay;       //손님의 대사를 출력하는 텍스트
+    public Text customerNameText;   //손님의 이름 출력
     public Text dayText;            //현재 일차를 출력하는 텍스트
     public Text dayTextTitle;       //다음 일차로 넘어갈 떄 일차를 출력하는 텍스트 
     public Text orderCountText;     //지금까지 주문 받은 수와, 목표치 표시
     public Text starText;           //현재 평점을 표시
 
-    [Header("---------------------[ prefab ]")]
 
-    public GameObject customerPrefab;   //손님의 프리팹
-    public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
+    //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
 
-
-
-    private string[] orderFailedArray = 
-        { "이렇게 나오시면 피자 대신 당신의 머리를 먹어버리는 수가 있습니다;;", //0
-          "그냥 햄버거 먹을 걸...",
-          "제가 진짜 피자에 대해서 잘 몰라서 그러는데, 이거 피자 맞죠?",
-          "이럴 줄 알았으면 옆집 프레디네 피자가게 갔지",
-          "아... ...",
-          "이러시면 국제 피자 법률 위반으로 잡혀가실 수도 있습니다. 조심하세요.", //5
-          "피자 이렇게 만드는 거 아닌데.",
-          "여기가 이탈리아가 아닌 걸 다행으로 여기세요.",
-          "혹시 가게 망하면 저한테 말해주세요. 최근에 피자가게 창업 준비중이었어서 ㅎㅎ",
-          "피자에 깔려있는 빨간 토마토 소스가 당신의 붉은 핏자국으로 바뀌는 수가 있습니다.",
-          "혹시 무슨 생각하면서 만드신 건가요? 진짜 그냥 궁금해서.", //10
-    };
-
-    private string[] orderSuccessArray =
-        { "우왕 맛있겠다. 감사합니다", //0
-          "햄버거랑 피자랑 고민했는데 피자 고르길 잘 한 거 같아요!",
-          "아주 나이스~",
-          "맛있는 피자~ 게살 피자~",
-          "피자한테 사랑받고 계시는 군요.",
-          "다이어트 하려고 했는데 다 망했다~", //5
-          "피자조아피자조아피자조아피자조아피자조아피자조아피자조아피자조아",
-          "피자가 네모난게 신기하네요",
-          "오늘 꿈에서도 피자 먹었는데!",
-          "다음에 또 올게요!",
-          "살인 사건 한 번쯤 나도 이 집은 장사 잘 될 듯",//10
-    };
+    
 
 
 
     public void Start()
     {
+
+        
         nextDayGroup.SetActive(false);
 
         //만약 요리가 끝난 상태라면 요리 끝 로직으로
@@ -102,11 +79,312 @@ public class OrderSystenManager : MonoBehaviour
 
     private void Update()
     {
+        customerNameText.text = customerName[customerNumber] + " 님 주문 감사합니다.".ToString();
+        orderValueText.text = "주문 내역: $ " + orderValue.ToString();
         starText.text = "★ :" + star.ToString("N1");    //평점이 몇 점인지 표시
         dayText.text = "Day " + day.ToString(); //몇 일차인지 표시
         orderCountText.text = orderCount + " / " + dayCount.ToString(); //몇 번의 주문을 받아야 하는지 표시
     }
 
+    void StartOrder() //주문 시작
+    {
+        if (isCustomerHere == true)     //손님이 화면에 있다면
+        {
+
+            orderResultText.text = "결과: $ 0".ToString();
+            customerNumber = Random.Range(0, 7);
+            valueDisplay.text = "아직 없음".ToString();
+            //말풍선에 손님이 요구하는 값 출력하기
+        }
+    }
+
+    public void NextOrder() //다음 주문
+    {
+        orderCount++;   //받은 주문 카운트 +1
+
+        if (star <= 0)
+        {
+            Ending.isBadEnding = true;
+            SceneManager.LoadScene(2);
+        }
+
+        if (orderCount == dayCount)
+        {
+            NextDay();      //다음 날 로직 실행헤서 조건 충족 시 다음날로
+        }
+        else if (orderCount < dayCount)
+        //내가 지금까지 받은 손님의 수가 다음 일차 조건보다 낮을 경우
+        {
+            orderButten.SetActive(false);   //주문 버튼 비활성화
+            nextOrderButten.SetActive(false);//다음 주문 받기 버튼 비활성화
+            orderGroup.SetActive(false);     //주문에 관한 UI그룹 비활성화
+            Invoke("MakeCustomer", 1.5f);    //1.5초 후에 다음 손님 생성
+        }
+
+    }
+
+    public void NextDay()
+    {
+        if (orderCount == dayCount)
+        //지금까지 내가 받은 손님의 수가 다음 일차로 넘어가기 위한 손님의 수를 충족한다면
+        {
+            day++;  //일차에 +1
+            dayText.text = "Day " + day.ToString();
+            orderCount = 0;
+
+            orderButten.SetActive(false);
+            nextOrderButten.SetActive(false);
+            orderGroup.SetActive(false);
+            nextDayGroup.SetActive(true);
+            customerGroup.SetActive(false);
+
+            dayTextTitle.text = "Day " + day.ToString();
+
+            isNextDay = true;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void NextDayButten() //다음 일차 버튼을 눌렀을 때
+    {
+        nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+
+        LevelSetting();
+        Invoke("MakeCustomer", 1.5f);
+    }
+
+    public void CookingFinish()     //요리가 끝난 후에 실행
+    {
+        if (isGameOver == true)  //요리 씬에서 게임 오버 된 것이 True라면
+        {
+
+            orderResultText.text = "결과: $ " + GameController2048.myScore.ToString();
+
+            if (GameController2048.myScore < orderValue)
+            //만약 플레이어의 점수가 손님이 요구하는 점수보다 낮다면
+            {
+                OrderFailedArray();
+                
+                star -= 1f;  //평점 1점 감소
+                Debug.Log(star);
+            }
+            else if (GameController2048.myScore >= orderValue)
+            //만약 플레이어의 점수가 손님이 요구하는 점수보다 높거나 같다면
+            {
+                OrderSuccessArray();
+                if (star == 5)
+                {
+                    return;
+                }
+                star += 0.5f;     //평점 1점 증가
+                Debug.Log(star);
+            }
+
+        }
+        customerGroup.SetActive(true);
+        orderGroup.SetActive(true);
+        orderButten.SetActive(false);
+        nextOrderButten.SetActive(true);
+
+    }
+
+    public void DeleteCustomer()    //현재 손님을 지우고 다음 손님을 받는 로직
+    {
+        //Destroy(customerPrefab);
+        isGameOver = false;     //게임 오버 여부 초기화
+
+        //버튼과 ui 그룹 비활성화
+        customerGroup.SetActive(false);
+        orderButten.SetActive(false);
+        nextOrderButten.SetActive(false);
+        orderGroup.SetActive(false);
+    }
+
+    void MakeCustomer() //손님 생성 로직
+    {
+        //게임 오브젝트에서 손님 프리팹을 인스턴스화 해서 생성하기
+        //GameObject instantCustomerObj = Instantiate(customerPrefab, customerGroup);
+        //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
+        //Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
+
+        customerGroup.SetActive(true);
+        orderButten.SetActive(true);
+        nextOrderButten.SetActive(false);
+        isCustomerHere = true;      //손님이 생성되었기 때문에 손님의 존재 여부를 참으로 설정
+        orderGroup.SetActive(true);
+
+
+
+        ValueSetting();
+        StartOrder();
+    }
+
+
+    public void ToCookginScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    void OrderFailedArray()
+    {
+        if (customerNumber == 0)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(0, 3)].ToString();
+        }
+        else if (customerNumber == 1)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(3, 6)].ToString();
+        }
+        else if (customerNumber == 2)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(6, 9)].ToString();
+        }
+        else if (customerNumber == 3)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(9, 12)].ToString();
+        }
+        else if (customerNumber == 4)
+        {
+            valueDisplay.text =  orderFailedArray[Random.Range(12, 15)].ToString();
+        }
+        else if (customerNumber == 5)
+        {
+            valueDisplay.text =  orderFailedArray[Random.Range(15, 18)].ToString();
+        }
+        else if (customerNumber == 6)
+        {
+            valueDisplay.text =  orderFailedArray[Random.Range(18, 21)].ToString();
+        }
+        //주문 실패했을 때의 후기 출력
+    }
+
+    void OrderSuccessArray()
+    {
+        if(customerNumber == 0)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(0, 3)].ToString();
+        }
+        else if(customerNumber == 1)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(3, 6)].ToString();
+        }
+        else if (customerNumber == 2)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(6, 9)].ToString();
+        }
+        else if (customerNumber == 3)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(9, 12)].ToString();
+        }
+        else if (customerNumber == 4)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(12, 15)].ToString();
+        }
+        else if (customerNumber == 5)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(15, 18)].ToString();
+        }
+        else if (customerNumber == 6)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(18, 21)].ToString();
+        }
+        //주문 실패했을 때의 후기 출력
+    }
+
+    private string[] customerName = //손님 이름 배열
+        { "맛있으면 웃는 사람", //0
+          "피자 비평가",
+          "삶은 달걀이다",
+          "햄버거 호소인",
+          "Chat GPT",
+          "피자에 미친 사람", //5
+          "파인애플 피자 혐오 반대 위원회",
+          "노란색 토끼",
+          "외국인",
+    };
+
+    private string[] orderFailedArray = //주문 실패 시 대사 배열
+        { 
+          //0번 손님 | 맛있으면 웃는 사람
+          ":(",
+          ">:[",
+          ":/",
+          //1번 손님 | 피자 비평가
+          "피자에 감동이 없어요.",
+          "여기가 이탈리아가 아닌 걸 다행으로 여기세요.",
+          "피자에 대한 모욕이라고 받아들이겠습니다.", 
+          //2번 손님 | 삶은 달걀이다
+          "제가 진짜 피자에 대해서 잘 몰라서 그러는데, 이거 피자 맞죠?",
+          "혹시 무슨 생각 하면서 만드신 건가요? 진짜 그냥 궁금해서.",
+          "피자가 제가 제시한 값어치만큼의 가치가 없네요.",
+          //3번 손님 | 햄버거 호소인
+          "그냥 햄버거 먹을걸...",
+          "이 돈 주고 피자 먹을 바에 햄버거 먹겠다",
+          "덕분에 앞으로는 햄버거만 먹어야겠다는 교훈을 얻었습니다. 감사합니다.",
+          //4번 손님 | Chat Gpt
+          "제 상상 속 피자보다 한참 못 미치네요. 아마 요리사가 오늘 기분이 안 좋았던 거죠?",
+          "이 피자, 외계인한테 배달된 건가요? 이건 지구의 피자 맛이 아닌 것 같은데요?",
+          "이 피자, 제가 집에서 만든 것보다 더 별로네요. 제가 요리 실력이 형편없는데도 이 정도는 아닌데요!",
+          //5번 손님 | 피자에 미친 사람
+          "피자 이렇게 만드는 거 아닌데...",
+          "이러시면 국제 피자 법률 위반으로 잡혀가실 수도 있습니다. 조심하세요.",
+          "식빵에 소스랑 치즈 좀 뿌린다고 다 피자인 건 아닙니다.",
+          //6번 손님 | 파인애플 피자 혐오 반대 위원회
+          "토핑이 조금 부족한 거 같은데... 아니 많이 부족한 거 같은데ㅠㅠ",
+          "토핑이 이게 뭡니까...",
+          "진짜 '음...'이라는 생각 밖에 안 드네요",
+          //7번 손님 | 노란색 토끼
+          "이럴 줄 알았으면 옆집 프레디네 피자가게 갔지",
+          "피자에 깔린 빨간 토마토소스가 붉은 핏자국으로 바뀌는 수가 있습니다;;",
+          "혹시 가게 망하면 저한테 말해주세요. 최근에 피자가게 창업 준비중이었거든요 ㅎㅎ",
+          //8번 손님 | 외국인
+          //9번 손님 | 일반인
+          "차라리 피자 젤리를 먹는 게 낫겠다.",
+          
+          "대부분의 사람들은 이런 걸 음식물 쓰레기라고 부르죠.",
+    };
+
+    private string[] orderSuccessArray = //주문 성공 시 대사 배열
+        { 
+          //0번 손님 | 맛있으면 웃는 사람
+          ":):):):):):):):):):)",
+          ":] :] :] :] :] :] :] :]",
+          ":D :D :D :D :D :D :D :D :D ",
+          //1번 손님 | 피자 비평가
+          "피자한테 사랑받고 계시는군요",
+          "피자가 네모난 게 신기하네요",
+          "피자가 예술이네요. 냉동고에 얼려놓고 평생 보관하겠습니다.",
+          //2번 손님 | 삶은 달걀이다
+          "다음에 또 올게요!",
+          "앞으로 자주 와야겠어요",
+          "피자 맛있겠다",
+          //3번 손님 | 햄버거 호소인
+          "맛있는 피자~ 게살 피자~",
+          "햄버거랑 피자랑 고민했는데 피자 고르길 잘한 거 같아요!",
+          "햄버거 만큼은 아니지만 피자도 맛있네요!",
+          //4번 손님 | Chat Gpt
+          "와, 피자가 정말 맛있네요! 도우가 완벽하게 바삭하고 토핑도 신선해요. 이렇게 맛있는 피자는 오랜만에 먹어봐요!",
+          "이 피자 정말 최고예요! 친구들이랑 가족에게 꼭 여기 피자가게 추천할게요. 다음에도 꼭 다시 올 거예요.",
+          "피자 정말 맛있게 먹었어요. 좋은 피자 만들어주셔서 감사합니다. 덕분에 정말 행복한 식사 시간이었어요!",
+          //5번 손님 | 피자에 미친 사람
+          "피자조아피자조아피자조아피자조아피자조아피자조아피자조아피자조아",
+          "피자ㅏㅏㅏ-파티다ㅏㅏㅏ!!!",
+          "오늘 꿈에서도 피자 먹었는데!",
+          //6번 손님 | 파인애플 피자 혐오 반대 위원회
+          "집 가서 파인애플 통조림이랑 같이 먹어야겠다! 감사합니다~",
+          "메뉴에 파인애플 피자가 없어서 아쉬웠는데 이 집은 일반 피자도 맛있네요!",
+          "아임파인땡큐앤유",
+          //7번 손님 | 노란색 토끼
+          "살인 사건 한 번쯤 나도 이 집은 장사 잘될 듯!",
+          //7번 손님 | 외국인
+          "우왕 맛있겠다! 감사합니다",
+          "아주 나이스~",
+          "다이어트 하려고 했는데 다 망했다~", //5
+          
+    };
 
     void ValueSetting()     //손님이 주문 할 피자의 값어치 세팅
     {
@@ -117,7 +395,7 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 1)      
         {
-            orderValue = Random.Range(100, 2000);     
+            orderValue = Random.Range(1000, 2000);     
         }
 
         else if (orderLevel == 2)      
@@ -168,14 +446,7 @@ public class OrderSystenManager : MonoBehaviour
 
     }
 
-    void StartOrder() //주문 시작
-    {
-        if (isCustomerHere == true)     //손님이 화면에 있다면
-        {
-            valueDisplay.text = "$ " + orderValue.ToString();
-            //말풍선에 손님이 요구하는 값 출력하기
-        }
-    }
+  
     void LevelSetting()  //일차에 따른 주문 난이도 설정
     {
         if (day == 1)   //1일차 거나 2일차 라면
@@ -197,123 +468,5 @@ public class OrderSystenManager : MonoBehaviour
         }
     }
     
-    public void NextOrder() //다음 주문
-    {
-        orderCount++;   //받은 주문 카운트 +1
-
-        if (star <= 0)
-        {
-            Ending.isBadEnding = true;
-            SceneManager.LoadScene(2);
-            
-        }
-
-        if (orderCount == dayCount)
-        {
-            NextDay();      //다음 날 로직 실행헤서 조건 충족 시 다음날로
-        }
-        else if(orderCount < dayCount)  
-        //내가 지금까지 받은 손님의 수가 다음 일차 조건보다 낮을 경우
-        {
-            orderButten.SetActive(false);   //주문 버튼 비활성화
-            nextOrderButten.SetActive(false);//다음 주문 받기 버튼 비활성화
-            orderGroup.SetActive(false);     //주문에 관한 UI그룹 비활성화
-            Invoke("MakeCustomer", 1.5f);    //1.5초 후에 다음 손님 생성
-        }
-        
-    }
-
-    public void NextDay()
-    {
-        if(orderCount == dayCount)  
-        //지금까지 내가 받은 손님의 수가 다음 일차로 넘어가기 위한 손님의 수를 충족한다면
-        {
-            day++;  //일차에 +1
-            dayText.text = "Day " + day.ToString();
-            orderCount = 0;
-            orderButten.SetActive(false);
-            nextOrderButten.SetActive(false);
-            orderGroup.SetActive(false);
-
-            nextDayGroup.SetActive(true);
-            dayTextTitle.text = "Day " + day.ToString();
-
-            isNextDay = true;
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    public void NextDayButten() //다음 일차 버튼을 눌렀을 때
-    {
-        nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
-
-        LevelSetting(); 
-        Invoke("MakeCustomer", 1.5f);
-    }
-
-    public void CookingFinish()     //요리가 끝난 후에 실행
-    {
-        if(isGameOver == true)  //요리 씬에서 게임 오버 된 것이 True라면
-        {
-            if(GameController2048.myScore < orderValue)  
-            //만약 플레이어의 점수가 손님이 요구하는 점수보다 낮다면
-            {
-                valueDisplay.text = orderFailedArray[Random.Range(0, 10)].ToString();    //:( 출력
-                star -= 1f;  //평점 1점 감소
-                Debug.Log(star);
-            }
-            else if(GameController2048.myScore >= orderValue)
-            //만약 플레이어의 점수가 손님이 요구하는 점수보다 높거나 같다면
-            {
-                valueDisplay.text = orderSuccessArray[Random.Range(0, 10)].ToString();   //:) 출력
-                if (star == 5)
-                {
-                    return;
-                }
-                star += 0.5f;     //평점 1점 증가
-                Debug.Log(star);
-            }
     
-        }
-        orderGroup.SetActive(true);
-        orderButten.SetActive(false);
-        nextOrderButten.SetActive(true);
-
-    }
-
-    public void DeleteCustomer()    //현재 손님을 지우고 다음 손님을 받는 로직
-    {
-        //Destroy(customerPrefab);
-        isGameOver = false;     //게임 오버 여부 초기화
-
-        //버튼과 ui 그룹 비활성화
-        orderButten.SetActive(false);   
-        nextOrderButten.SetActive(false);
-        orderGroup.SetActive(false);
-    }
-
-    void MakeCustomer() //손님 생성 로직
-    {
-        //게임 오브젝트에서 손님 프리팹을 인스턴스화 해서 생성하기
-        GameObject instantCustomerObj = Instantiate(customerPrefab, customerGroup); 
-        //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
-        Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
-
-        orderButten.SetActive(true);
-        nextOrderButten.SetActive(false);
-        isCustomerHere = true;      //손님이 생성되었기 때문에 손님의 존재 여부를 참으로 설정
-        orderGroup.SetActive(true);
-        
-        ValueSetting();
-        StartOrder();
-    }
-
-    
-    public void ToCookginScene()
-    {
-        SceneManager.LoadScene(1);
-    }
 }

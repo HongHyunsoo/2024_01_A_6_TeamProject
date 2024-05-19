@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
-    public int customerNumber;      //손님의 번호
+    public static int customerNumber;      //손님의 번호
     GameController2048 gameController2048;
     OrderSystenManager orderSystenManager;
 
-   
     // Start is called before the first frame updates
+    
+
+    
     void Start()
     {
         
@@ -21,5 +23,9 @@ public class Customer : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void customer()
+    {
     }
 }
