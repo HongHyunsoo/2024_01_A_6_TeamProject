@@ -51,7 +51,6 @@ public class OrderSystenManager : MonoBehaviour
 
     public void Start()
     {
-
         
         nextDayGroup.SetActive(false);
 
@@ -258,6 +257,14 @@ public class OrderSystenManager : MonoBehaviour
         {
             valueDisplay.text =  orderFailedArray[Random.Range(18, 21)].ToString();
         }
+        else if (customerNumber == 7)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(21, 24)].ToString();
+        }
+        else if (customerNumber == 8)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(24, 27)].ToString();
+        }
         //주문 실패했을 때의 후기 출력
     }
 
@@ -291,6 +298,14 @@ public class OrderSystenManager : MonoBehaviour
         {
             valueDisplay.text = orderSuccessArray[Random.Range(18, 21)].ToString();
         }
+        else if (customerNumber == 7)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(21, 24)].ToString();
+        }
+        else if (customerNumber == 8)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(24, 27)].ToString();
+        }
         //주문 실패했을 때의 후기 출력
     }
 
@@ -302,57 +317,58 @@ public class OrderSystenManager : MonoBehaviour
           "Chat GPT",
           "피자에 미친 사람", //5
           "파인애플 피자 혐오 반대 위원회",
+          "왕이 넘어지면 킹콩",
           "노란색 토끼",
-          "외국인",
     };
 
     private string[] orderFailedArray = //주문 실패 시 대사 배열
         { 
-          //0번 손님 | 맛있으면 웃는 사람
+          //0번 | 맛있으면 웃는 사람
           ":(",
           ">:[",
           ":/",
-          //1번 손님 | 피자 비평가
+          //1번 | 피자 비평가
           "피자에 감동이 없어요.",
           "여기가 이탈리아가 아닌 걸 다행으로 여기세요.",
           "피자에 대한 모욕이라고 받아들이겠습니다.", 
-          //2번 손님 | 삶은 달걀이다
+          //2번 | 삶은 달걀이다
           "제가 진짜 피자에 대해서 잘 몰라서 그러는데, 이거 피자 맞죠?",
           "혹시 무슨 생각 하면서 만드신 건가요? 진짜 그냥 궁금해서.",
           "피자가 제가 제시한 값어치만큼의 가치가 없네요.",
-          //3번 손님 | 햄버거 호소인
+          //3번 | 햄버거 호소인
           "그냥 햄버거 먹을걸...",
           "이 돈 주고 피자 먹을 바에 햄버거 먹겠다",
           "덕분에 앞으로는 햄버거만 먹어야겠다는 교훈을 얻었습니다. 감사합니다.",
-          //4번 손님 | Chat Gpt
+          //4번 | Chat Gpt
           "제 상상 속 피자보다 한참 못 미치네요. 아마 요리사가 오늘 기분이 안 좋았던 거죠?",
-          "이 피자, 외계인한테 배달된 건가요? 이건 지구의 피자 맛이 아닌 것 같은데요?",
-          "이 피자, 제가 집에서 만든 것보다 더 별로네요. 제가 요리 실력이 형편없는데도 이 정도는 아닌데요!",
-          //5번 손님 | 피자에 미친 사람
+          "이탈리아의 맛이 아니라, 마치 이탈리아 관광 책자를 씹어먹는 기분이나요.",
+          "제가 집에서 만든 것보다 더 별로네요. 제가 요리 실력이 형편없는데도 이 정도는 아닌데요!",
+          //5번 | 피자에 미친 사람
           "피자 이렇게 만드는 거 아닌데...",
           "이러시면 국제 피자 법률 위반으로 잡혀가실 수도 있습니다. 조심하세요.",
           "식빵에 소스랑 치즈 좀 뿌린다고 다 피자인 건 아닙니다.",
-          //6번 손님 | 파인애플 피자 혐오 반대 위원회
-          "토핑이 조금 부족한 거 같은데... 아니 많이 부족한 거 같은데ㅠㅠ",
-          "토핑이 이게 뭡니까...",
-          "진짜 '음...'이라는 생각 밖에 안 드네요",
-          //7번 손님 | 노란색 토끼
-          "이럴 줄 알았으면 옆집 프레디네 피자가게 갔지",
-          "피자에 깔린 빨간 토마토소스가 붉은 핏자국으로 바뀌는 수가 있습니다;;",
-          "혹시 가게 망하면 저한테 말해주세요. 최근에 피자가게 창업 준비중이었거든요 ㅎㅎ",
-          //8번 손님 | 외국인
-          //9번 손님 | 일반인
-          "차라리 피자 젤리를 먹는 게 낫겠다.",
+          //6번 | 파인애플 피자 혐오 반대 위원회
+          "아무리 파인애플이 만능이라지만 이거는 파인애플을 넣어도 커버를 할 수가 없는데요.",
+          "파인애플이 있고 없고를 떠나서 그냥 맛이 없어요.",
+          "이거 피자 혐오입니다.",
+          //7번 | 왕이 넘어지면 킹콩
+          "개가 화를 쉽게 내는 이유는?\n분노 개 이지 폭발.",
+          "모내기 기계가 고장나면?\n심기 불편.",
+          "형과 동생이 싸울 때 형의 편을 들어주는 사람이 없으면?\n형편없다.",
+          //8번| 노란색 토끼
+          "피자에 깔린 빨간 토마토소스가 붉은 핏자국으로 바뀌는 수가 있습니다.",
+          "피자가 미쳤네요. 아 물론 나쁜 뜻으로요.",
+          "준비중",
           
-          "대부분의 사람들은 이런 걸 음식물 쓰레기라고 부르죠.",
+          
     };
 
     private string[] orderSuccessArray = //주문 성공 시 대사 배열
         { 
           //0번 손님 | 맛있으면 웃는 사람
           ":):):):):):):):):):)",
-          ":] :] :] :] :] :] :] :]",
-          ":D :D :D :D :D :D :D :D :D ",
+          ":]:]:]:]:]:]:]:]:]:]",
+          ":D:D:D:D:D:D:D:D:D:D",
           //1번 손님 | 피자 비평가
           "피자한테 사랑받고 계시는군요",
           "피자가 네모난 게 신기하네요",
@@ -376,13 +392,15 @@ public class OrderSystenManager : MonoBehaviour
           //6번 손님 | 파인애플 피자 혐오 반대 위원회
           "집 가서 파인애플 통조림이랑 같이 먹어야겠다! 감사합니다~",
           "메뉴에 파인애플 피자가 없어서 아쉬웠는데 이 집은 일반 피자도 맛있네요!",
-          "아임파인땡큐앤유",
-          //7번 손님 | 노란색 토끼
-          "살인 사건 한 번쯤 나도 이 집은 장사 잘될 듯!",
-          //7번 손님 | 외국인
-          "우왕 맛있겠다! 감사합니다",
-          "아주 나이스~",
-          "다이어트 하려고 했는데 다 망했다~", //5
+          "맛있는 피자 덕분에 즐거운 시간을 보냈어요! 파인애플 피자가 추가된다면 더 자주 올 것 같아요.",
+          //7번 | 왕이 넘어지면 킹콩
+          "학생들이 가장 싫어하는 피자는?\n책피자",
+          "가장 인기가 많은 파는?\n파스타",
+          "다리미가 좋아하는 음식은?\n피자!",
+          //8번 손님 | 노란색 토끼
+          "사장님을 납치해서 피자만 만들게 하고 싶을 정도로 맛있어요!",
+          "피자가 미쳤네요. 아 물론 좋은 뜻으로요.",
+          "준비중",
           
     };
 
@@ -446,6 +464,29 @@ public class OrderSystenManager : MonoBehaviour
 
     }
 
+    void OrderCount()
+    {
+        if (star == 0.5 || star == 1)
+        {
+            dayCount = 1;
+        }
+        else if (star == 1.5 || star == 2)
+        {
+            dayCount = 2;
+        }
+        else if (star == 2.5 || star == 3)
+        {
+            dayCount = 3;
+        }
+        else if (star == 3.5 || star == 4)
+        {
+            dayCount = 4;
+        }
+        else if (star == 4.5 || star == 5 )
+        {
+            dayCount = 5;
+        }
+    }
   
     void LevelSetting()  //일차에 따른 주문 난이도 설정
     {
@@ -457,7 +498,8 @@ public class OrderSystenManager : MonoBehaviour
         else if (day == 2 || day == 3)
         {
             orderLevel = 1;
-            dayCount = Random.Range(2, 4);
+            OrderCount();
+            //dayCount = Random.Range(2, 4);
             //다음 일차로 넘어가기 위해 받아야 하는 손님의 수를 2~3 사이에서 랜덤으로 설정
 
         }
