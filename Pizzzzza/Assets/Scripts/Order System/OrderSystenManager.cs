@@ -91,7 +91,7 @@ public class OrderSystenManager : MonoBehaviour
         {
 
             orderResultText.text = "결과: $ 0".ToString();
-            customerNumber = Random.Range(0, 9);
+            customerNumber = Random.Range(0, 7);
             valueDisplay.text = "아직 없음".ToString();
             //말풍선에 손님이 요구하는 값 출력하기
         }
@@ -464,6 +464,29 @@ public class OrderSystenManager : MonoBehaviour
 
     }
 
+    void OrderCount()
+    {
+        if (star == 0.5 || star == 1)
+        {
+            dayCount = 1;
+        }
+        else if (star == 1.5 || star == 2)
+        {
+            dayCount = 2;
+        }
+        else if (star == 2.5 || star == 3)
+        {
+            dayCount = 3;
+        }
+        else if (star == 3.5 || star == 4)
+        {
+            dayCount = 4;
+        }
+        else if (star == 4.5 || star == 5 )
+        {
+            dayCount = 5;
+        }
+    }
   
     void LevelSetting()  //일차에 따른 주문 난이도 설정
     {
@@ -475,7 +498,8 @@ public class OrderSystenManager : MonoBehaviour
         else if (day == 2 || day == 3)
         {
             orderLevel = 1;
-            dayCount = Random.Range(2, 4);
+            OrderCount();
+            //dayCount = Random.Range(2, 4);
             //다음 일차로 넘어가기 위해 받아야 하는 손님의 수를 2~3 사이에서 랜덤으로 설정
 
         }
