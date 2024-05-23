@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 
 public class GameController2048 : MonoBehaviour
 {
+    public static int moveCount;
     public static GameController2048 instance;
     public static int ticker;
 
@@ -15,6 +16,7 @@ public class GameController2048 : MonoBehaviour
     [SerializeField] Cells[] allCells;      //모든 셀
     [SerializeField] Text scoreDisplay;     // 점수 표시
     [SerializeField] Text goalScoreDisplay; //목표 점수 표시
+    [SerializeField] Text moveCountDisplay;
 
     public static Action<string> slide;
     public static int myScore;  //점수 값
@@ -27,6 +29,8 @@ public class GameController2048 : MonoBehaviour
 
     void Start()
     {
+
+        moveCountDisplay.text = moveCount.ToString();
         goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
         OrderSystenManager.isNextDay = false;
 
@@ -47,7 +51,7 @@ public class GameController2048 : MonoBehaviour
     public void FinishOrder()
     {
         OrderSystenManager.isGameOver = true;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     void Update()
@@ -57,38 +61,52 @@ public class GameController2048 : MonoBehaviour
         {
             finishOrder.SetActive(true);
         }
-
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    SpawnFill();
         //}
-        if (Input.GetKeyDown(KeyCode.W))
+        if (OrderSystenManager.isGameOver == false)
         {
-            ticker = 0;
-            gameOver = 0;
-            slide("w");
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                MoveCountUpdate();
+                ticker = 0;
+                gameOver = 0;
+                slide("w");
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                MoveCountUpdate();
+                ticker = 0;
+                gameOver = 0;
+                slide("s");
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                MoveCountUpdate();
+                ticker = 0;
+                gameOver = 0;
+                slide("a");
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                MoveCountUpdate();
+                ticker = 0;
+                gameOver = 0;
+                slide("d");
+            }
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            ticker = 0;
-            gameOver = 0;
-            slide("s");
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            ticker = 0;
-            gameOver = 0;
-            slide("a");
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            ticker = 0;
-            gameOver = 0;
-            slide("d");
-        }
+       
 
 
 
+    }
+
+    public void MoveCountUpdate()
+    {
+        MoveOverCheck();
+        moveCount--;
+        moveCountDisplay.text = moveCount.ToString();
     }
 
     public void SpawnFill()
@@ -170,9 +188,18 @@ public class GameController2048 : MonoBehaviour
         }
     }
 
+    public void MoveOverCheck()
+    {
+        if(moveCount <= 1)
+        {
+            gameOverPanel.SetActive(true);
+            OrderSystenManager.isGameOver = true;
+        }
+    }
+
     public void ToOrderScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         
     }
 

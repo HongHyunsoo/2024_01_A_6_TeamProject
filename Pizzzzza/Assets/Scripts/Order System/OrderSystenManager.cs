@@ -9,10 +9,12 @@ public class OrderSystenManager : MonoBehaviour
 
     public static int day; //일차
     public static int dayCount; //일차를 넘어갈 때 얼마만큼의 손님을 받아야 넘어갈 건지
+
     public static int orderCount;   //현재 일차에서 지금까지 내가 받은 손님의 수  
     public static int orderLevel; //손님의 주문 난이도
     public static int orderValue;   //손님이 요구하는 피자의 값어치
     public static int customerNumber;      //손님의 번호
+    
     public static float star;     //가게의 평점
 
 
@@ -224,7 +226,7 @@ public class OrderSystenManager : MonoBehaviour
 
     public void ToCookginScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     void OrderFailedArray()
@@ -409,6 +411,7 @@ public class OrderSystenManager : MonoBehaviour
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
             orderValue = Random.Range(100, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
+            GameController2048.moveCount = 100;
         }
 
         else if (orderLevel == 1)      
