@@ -47,9 +47,6 @@ public class OrderSystenManager : MonoBehaviour
     //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
 
-    
-
-
 
     public void Start()
     {
@@ -416,7 +413,8 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 1)      
         {
-            orderValue = Random.Range(1000, 2000);     
+            orderValue = Random.Range(1000, 2000);
+            GameController2048.moveCount = 200;
         }
 
         else if (orderLevel == 2)      

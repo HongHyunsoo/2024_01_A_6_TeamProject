@@ -33,6 +33,7 @@ public class GameController2048 : MonoBehaviour
         moveCountDisplay.text = moveCount.ToString();
         goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
         OrderSystenManager.isNextDay = false;
+        OrderSystenManager.isGameOver = false;
 
         myScore = 0;
         //시작할 때 셀에 2값을 가진 토핑 2개 생성
