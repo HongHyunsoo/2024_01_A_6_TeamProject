@@ -90,7 +90,7 @@ public class OrderSystenManager : MonoBehaviour
         {
 
             orderResultText.text = "결과: $ 0".ToString();
-            customerNumber = Random.Range(0, 7);
+            customerNumber = Random.Range(0, 10);
             valueDisplay.text = "아직 없음".ToString();
             //말풍선에 손님이 요구하는 값 출력하기
         }
@@ -317,6 +317,8 @@ public class OrderSystenManager : MonoBehaviour
           "피자에 미친 사람", //5
           "파인애플 피자 혐오 반대 위원회",
           "왕이 넘어지면 킹콩",
+          "웃음꽃 피자",
+          "분노조절잘함",
           "노란색 토끼",
     };
 
@@ -354,8 +356,16 @@ public class OrderSystenManager : MonoBehaviour
           "개가 화를 쉽게 내는 이유는?\n분노 개 이지 폭발.",
           "모내기 기계가 고장나면?\n심기 불편.",
           "형과 동생이 싸울 때 형의 편을 들어주는 사람이 없으면?\n형편없다.",
-          //8번| 노란색 토끼
-          "피자에 깔린 빨간 토마토소스가 붉은 핏자국으로 바뀌는 수가 있습니다.",
+          //8번 | 웃음꽃 피자
+          "기대 이하였습니다.",
+          "전체적으로 실망스러웠습니다.",
+          "가치가 없는 맛입니다.",
+          //9번 | 분노조절잘함
+          "이건 피자에 대한 모욕이야!",
+          "이딴 걸 내가! 먹으라고?!",
+          "사장 나오라 그래!!",
+          //번 | 노란색 토끼
+          "피자에 깔린 빨간 토마토소스가 붉은 핏자국으로 바뀌는 수가 있습니다;;",
           "피자가 미쳤네요. 아 물론 나쁜 뜻으로요.",
           "준비중",
           
@@ -396,7 +406,15 @@ public class OrderSystenManager : MonoBehaviour
           "학생들이 가장 싫어하는 피자는?\n책피자",
           "가장 인기가 많은 파는?\n파스타",
           "다리미가 좋아하는 음식은?\n피자!",
-          //8번 손님 | 노란색 토끼
+          //8번| 웃음꽃 피자
+          "웃음꽃이 절로 나는 피자구먼~",
+          "10점 만점에 10점~",
+          "피자 먹고 나니, 기분이 너무 좋은걸!",
+          //9번 | 분노조절잘함
+          "역시 이게 피자지",
+          "이런 맛집을 왜 이제 안거지?",
+          "이런 가게는 널리 알려야 해요",
+          //번 | 노란색 토끼
           "사장님을 납치해서 피자만 만들게 하고 싶을 정도로 맛있어요!",
           "피자가 미쳤네요. 아 물론 좋은 뜻으로요.",
           "준비중",
@@ -419,12 +437,14 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 2)      
         {
-            orderValue = Random.Range(2000, 4000);    
+            orderValue = Random.Range(2000, 4000);
+            GameController2048.moveCount = 250;
         }
 
         else if (orderLevel == 3)     
         {
-            orderValue = Random.Range(4000, 10000);     
+            orderValue = Random.Range(4000, 10000);
+            GameController2048.moveCount = 300;
         }
 
         else if (orderLevel == 4)      

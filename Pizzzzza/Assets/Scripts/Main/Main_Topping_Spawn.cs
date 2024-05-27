@@ -30,7 +30,7 @@ public class Main_Topping_Spawn : MonoBehaviour
             float RandomNumberX = Random.Range(0, 2.0f);                         //0에 8까지의 랜덤 값을 받아서
             temp.transform.position += new Vector3(RandomNumberX, 0.0f, 0.0f);   //x, y 값 위치에 더해준다.
 
-            Destroy(temp, 10.0f);
+            //Destroy(temp, 10.0f);
         }
         else if (checkTime >= Random.Range(0.6f, 0.9f) && firstSpawn == 1)
         {
@@ -41,7 +41,7 @@ public class Main_Topping_Spawn : MonoBehaviour
             temp.transform.position += new Vector3(RandomNumberX, 0.0f, 0.0f);   //x, y 값 위치에 더해준다.
             firstSpawn++;
 
-            Destroy(temp, 10.0f);
         }
     }
+   
 }
