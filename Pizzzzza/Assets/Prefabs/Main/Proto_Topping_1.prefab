@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1992126973121273301}
   - component: {fileID: 2753328692001936217}
   - component: {fileID: 3708368560589298685}
-  - component: {fileID: 992248378733270788}
   - component: {fileID: -3970170164822160010}
+  - component: {fileID: 1213338657995611791}
   m_Layer: 0
   m_Name: Proto_Topping_1
   m_TagString: Untagged
@@ -114,18 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &992248378733270788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5810296031319692079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ceb4a675b3f94a428e72f4f0e91748e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &-3970170164822160010
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -161,3 +149,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &1213338657995611791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5810296031319692079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ceb4a675b3f94a428e72f4f0e91748e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

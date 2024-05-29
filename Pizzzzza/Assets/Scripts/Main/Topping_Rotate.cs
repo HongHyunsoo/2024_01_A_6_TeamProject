@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Topping_Rotate : MonoBehaviour
 {
-    float distance = 10;
+    float distance = 5;
 
     void OnMouseDrag()
     {

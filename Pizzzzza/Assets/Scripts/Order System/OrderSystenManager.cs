@@ -264,6 +264,14 @@ public class OrderSystenManager : MonoBehaviour
         {
             valueDisplay.text = orderFailedArray[Random.Range(24, 27)].ToString();
         }
+        else if (customerNumber == 9)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(27, 30)].ToString();
+        }
+        else if (customerNumber == 10)
+        {
+            valueDisplay.text = orderFailedArray[Random.Range(30, 33)].ToString();
+        }
         //주문 실패했을 때의 후기 출력
     }
 
@@ -305,6 +313,14 @@ public class OrderSystenManager : MonoBehaviour
         {
             valueDisplay.text = orderSuccessArray[Random.Range(24, 27)].ToString();
         }
+        else if (customerNumber == 9)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(30, 33)].ToString();
+        }
+        else if (customerNumber == 10)
+        {
+            valueDisplay.text = orderSuccessArray[Random.Range(33, 36)].ToString();
+        }
         //주문 실패했을 때의 후기 출력
     }
 
@@ -319,7 +335,7 @@ public class OrderSystenManager : MonoBehaviour
           "왕이 넘어지면 킹콩",
           "웃음꽃 피자",
           "분노조절잘함",
-          "노란색 토끼",
+          "노란색 토끼", //10
     };
 
     private string[] orderFailedArray = //주문 실패 시 대사 배열
