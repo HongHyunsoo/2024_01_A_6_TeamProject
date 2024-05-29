@@ -441,61 +441,61 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
-            orderValue = Random.Range(100, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
-            GameController2048.moveCount = 100;
+            orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
+            GameController2048.moveCount = 70;
         }
 
-        else if (orderLevel == 1)      
+        else if (orderLevel == 1)
         {
-            orderValue = Random.Range(1000, 2000);
-            GameController2048.moveCount = 200;
+            orderValue = Random.Range(700, 1000);
+            GameController2048.moveCount = 110;
         }
 
-        else if (orderLevel == 2)      
+        else if (orderLevel == 2)
         {
-            orderValue = Random.Range(2000, 4000);
+            orderValue = Random.Range(1000, 1500);
             GameController2048.moveCount = 250;
         }
 
-        else if (orderLevel == 3)     
+        else if (orderLevel == 3)
         {
-            orderValue = Random.Range(4000, 10000);
+            orderValue = Random.Range(2000, 2500);
             GameController2048.moveCount = 300;
         }
 
-        else if (orderLevel == 4)      
+        else if (orderLevel == 4)
         {
-            orderValue = Random.Range(10000, 20000);     
+            orderValue = Random.Range(4000, 6000);
         }
 
-        else if (orderLevel == 5)     
+        else if (orderLevel == 5)
         {
-            orderValue = Random.Range(20000, 40000);    
+            orderValue = Random.Range(8000, 10000);
         }
 
-        else if (orderLevel == 6)      
+        else if (orderLevel == 6)
         {
-            orderValue = Random.Range(40000, 50000);     
+            orderValue = Random.Range(12000, 14000);
         }
 
-        else if (orderLevel == 7)      
+        else if (orderLevel == 7)
         {
-            orderValue = Random.Range(50000, 60000);    
+            orderValue = Random.Range(15000, 17000);
         }
 
-        else if (orderLevel == 8)     
+        else if (orderLevel == 8)
         {
-            orderValue = Random.Range(13500, 15000);     
+            orderValue = Random.Range(18000, 20000);
         }
 
-        else if (orderLevel == 9)      
+        else if (orderLevel == 9)
         {
-            orderValue = Random.Range(14500, 16000);     
+            orderValue = Random.Range(21000, 23000);
         }
-        
+
         else if (orderLevel == 10)
         {
-            orderValue = Random.Range(14500, 16000);
+            orderValue = 25000;
         }
 
 
@@ -519,18 +519,18 @@ public class OrderSystenManager : MonoBehaviour
         {
             dayCount = 4;
         }
-        else if (star == 4.5 || star == 5 )
+        else if (star == 4.5 || star == 5)
         {
             dayCount = 5;
         }
     }
-  
+
     void LevelSetting()  //일차에 따른 주문 난이도 설정
     {
-        if (day == 1)   //1일차 거나 2일차 라면
+        if (day == 1)   //1일차 라면
         {
             orderLevel = 0; //주문 난이도를 0으로
-            dayCount = 1;
+            dayCount = 2;
         }
         else if (day == 2 || day == 3)
         {
@@ -543,9 +543,8 @@ public class OrderSystenManager : MonoBehaviour
         else if (day == 4 || day == 5)
         {
             orderLevel = 2;
-            dayCount = Random.Range(2, 4);
+            OrderCount();
         }
     }
-    
-    
+
 }
