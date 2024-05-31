@@ -1179,7 +1179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &617003919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2083,13 +2083,15 @@ GameObject:
   - component: {fileID: 1179695426}
   - component: {fileID: 1179695428}
   - component: {fileID: 1179695427}
+  - component: {fileID: 1179695429}
+  - component: {fileID: 1179695430}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1179695426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2147,6 +2149,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179695425}
   m_CullTransparentMesh: 1
+--- !u!95 &1179695429
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179695425}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4000bc13d922fd84396e4a64d6faf3f6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1179695430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179695425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f284c5a1611bcc14286fa2014819b36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1192297314 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -7491708200904225711, guid: 9e1e335edb0078043905db756d98b7d1, type: 3}
@@ -2390,7 +2425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e1b15aad13e2048b3d4f67b6fc2361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillPrefab: {fileID: 8099956341850362598, guid: 358458cd64109e1449b5f202f39836ca, type: 3}
+  fillPrefab:
+  - {fileID: 8099956341850362598, guid: 358458cd64109e1449b5f202f39836ca, type: 3}
+  - {fileID: 8099956341850362598, guid: 217310cb58122c44485c125435c9f024, type: 3}
   allCells:
   - {fileID: 1411848186}
   - {fileID: 15396804}
@@ -2412,6 +2449,8 @@ MonoBehaviour:
   goalScoreDisplay: {fileID: 1818162003}
   moveCountDisplay: {fileID: 1770016464}
   finishOrder: {fileID: 979511080}
+  pizzaImage: {fileID: 1179695425}
+  toppingImage: {fileID: 617003918}
   gameOverPanel: {fileID: 1072529859}
 --- !u!1 &1589268839
 GameObject:

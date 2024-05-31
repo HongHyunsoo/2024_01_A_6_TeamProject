@@ -12,7 +12,7 @@ public class GameController2048 : MonoBehaviour
     public static GameController2048 instance;
     public static int ticker;
 
-    [SerializeField] GameObject fillPrefab;     //토핑 프레펩으로 셀 체우기
+    [SerializeField] GameObject[] fillPrefab;     //토핑 프레펩으로 셀 체우기
     [SerializeField] Cells[] allCells;      //모든 셀
     [SerializeField] Text scoreDisplay;     // 점수 표시
     [SerializeField] Text goalScoreDisplay; //목표 점수 표시
@@ -21,6 +21,8 @@ public class GameController2048 : MonoBehaviour
     public static Action<string> slide;
     public static int myScore;  //점수 값
     public GameObject finishOrder;
+    public GameObject pizzaImage;
+    public GameObject toppingImage;
 
     int gameOver;
     [SerializeField] GameObject gameOverPanel;
@@ -29,7 +31,8 @@ public class GameController2048 : MonoBehaviour
 
     void Start()
     {
-
+        pizzaImage.SetActive(true);
+        Invoke("pizzaTopping", 1.0f);
         moveCountDisplay.text = moveCount.ToString();
         goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
         OrderSystenManager.isNextDay = false;
@@ -37,8 +40,14 @@ public class GameController2048 : MonoBehaviour
 
         myScore = 0;
         //시작할 때 셀에 2값을 가진 토핑 2개 생성
+
         StartSpawnFill();
         StartSpawnFill();
+    }
+
+    void pizzaTopping()
+    {
+        toppingImage.SetActive(true);
     }
 
     private void OnEnable()
@@ -141,7 +150,7 @@ public class GameController2048 : MonoBehaviour
 
         else if (chance < 1f)   //100%의 확률로 2값을 가진 토핑 생성
         {
-            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn].transform);    //프리펩을 인스턴스화 하여 셀에 배치
+            GameObject tempFill = Instantiate(fillPrefab[OrderSystenManager.pizzaNumber], allCells[whichSpawn].transform);    //프리펩을 인스턴스화 하여 셀에 배치
             Fill tempFillComp = tempFill.GetComponent<Fill>();        //인스턴스화 된 오브젝트에서 fill 컴포넌트 가져오기
             allCells[whichSpawn].GetComponent<Cells>().fill = tempFillComp; //모든 셀 중 임의로 선택 된 셀 컴포넌트에 fill 속성 설정         
             tempFillComp.FillValueUpdate(2);        //fill 스크립트의 FillValueUpdate 함수를 호출하여 값을 2로 업데이트
@@ -166,7 +175,7 @@ public class GameController2048 : MonoBehaviour
             return;
         }
         
-            GameObject tempFill = Instantiate(fillPrefab, allCells[whichSpawn].transform);
+            GameObject tempFill = Instantiate(fillPrefab[OrderSystenManager.pizzaNumber], allCells[whichSpawn].transform);
             Fill tempFillComp = tempFill.GetComponent<Fill>();
             allCells[whichSpawn].GetComponent<Cells>().fill = tempFillComp;
             tempFillComp.FillValueUpdate(2);
@@ -191,10 +200,10 @@ public class GameController2048 : MonoBehaviour
 
     public void MoveOverCheck()
     {
-        if(moveCount <= 1)
+        if(moveCount <= 1)  //MoveCount가 0이 되면
         {
             gameOverPanel.SetActive(true);
-            OrderSystenManager.isGameOver = true;
+            OrderSystenManager.isGameOver = true;   //게임 오버
         }
     }
 

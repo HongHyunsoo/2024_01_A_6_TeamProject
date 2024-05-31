@@ -10,10 +10,11 @@ public class OrderSystenManager : MonoBehaviour
     public static int day; //일차
     public static int dayCount; //일차를 넘어갈 때 얼마만큼의 손님을 받아야 넘어갈 건지
 
-    public static int orderCount;   //현재 일차에서 지금까지 내가 받은 손님의 수  
-    public static int orderLevel; //손님의 주문 난이도
-    public static int orderValue;   //손님이 요구하는 피자의 값어치
+    public static int orderCount;          //현재 일차에서 지금까지 내가 받은 손님의 수  
+    public static int orderLevel;          //손님의 주문 난이도
+    public static int orderValue;          //손님이 요구하는 피자의 값어치
     public static int customerNumber;      //손님의 번호
+    public static int pizzaNumber;         //피자 메뉴 번호
     
     public static float star;     //가게의 평점
 
@@ -175,10 +176,15 @@ public class OrderSystenManager : MonoBehaviour
                 OrderSuccessArray();
                 if (star == 5)
                 {
-                    return;
+                    star += 0.0f;     //평점 1점 증가
+                    Debug.Log(star);
                 }
-                star += 0.5f;     //평점 1점 증가
-                Debug.Log(star);
+                else if (star < 5)
+                {
+                    star += 0.5f;     //평점 1점 증가
+                    Debug.Log(star);
+                }
+                
             }
 
         }
@@ -207,7 +213,8 @@ public class OrderSystenManager : MonoBehaviour
         //GameObject instantCustomerObj = Instantiate(customerPrefab, customerGroup);
         //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
         //Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
-
+        pizzaNumber = Random.Range(0, 2);
+        Debug.Log(pizzaNumber);
         customerGroup.SetActive(true);
         orderButten.SetActive(true);
         nextOrderButten.SetActive(false);
@@ -315,11 +322,11 @@ public class OrderSystenManager : MonoBehaviour
         }
         else if (customerNumber == 9)
         {
-            valueDisplay.text = orderSuccessArray[Random.Range(30, 33)].ToString();
+            valueDisplay.text = orderSuccessArray[Random.Range(27, 30)].ToString();
         }
         else if (customerNumber == 10)
         {
-            valueDisplay.text = orderSuccessArray[Random.Range(33, 36)].ToString();
+            valueDisplay.text = orderSuccessArray[Random.Range(30, 33)].ToString();
         }
         //주문 실패했을 때의 후기 출력
     }
