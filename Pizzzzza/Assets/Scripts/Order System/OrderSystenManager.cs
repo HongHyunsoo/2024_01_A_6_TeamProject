@@ -22,6 +22,7 @@ public class OrderSystenManager : MonoBehaviour
     public static bool isCustomerHere; //화면에 손님이 존재하는지
     public static bool isGameOver;   //요리가 끝난 상태인지
     public static bool isNextDay; //일차를 넘어간 후 일차 난이도에 대해 설정을 해야하는 상태인지
+    public static bool isReciptPrint;   //영수증을 출력해야하는 상황인지
 
 
     [Header("---------------------[ UI ]")]
@@ -227,8 +228,14 @@ public class OrderSystenManager : MonoBehaviour
         StartOrder();
     }
 
+    public void PressCookingButten()
+    {
+        orderButten.SetActive(false);
+        isReciptPrint = true;
+        Invoke("ToCookingScene",5f);
+    }
 
-    public void ToCookginScene()
+    public void ToCookingScene()
     {
         SceneManager.LoadScene(2);
     }
