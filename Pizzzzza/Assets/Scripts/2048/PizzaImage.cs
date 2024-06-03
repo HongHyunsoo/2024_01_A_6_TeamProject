@@ -9,7 +9,6 @@ public class PizzaImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         pizzaBase_Animator = GetComponent<Animator>();
         pizzaBase_Animator.SetInteger("PizzaNumber", OrderSystenManager.pizzaNumber);
     }

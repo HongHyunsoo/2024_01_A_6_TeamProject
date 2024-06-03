@@ -38,13 +38,19 @@ public class OrderSystenManager : MonoBehaviour
 
     public Text orderValueText;     //손님이 요구하는 값을 출력하는 텍스트
     public Text orderResultText;    //내가 받은 값을 출력하는 텍스트
-    public Text valueDisplay;       //손님의 대사를 출력하는 텍스트
     public Text customerNameText;   //손님의 이름 출력
+    public Text valueDisplay;       //손님의 대사를 출력하는 텍스트
+    public Text pizzaNameText;      //피자의 이름을 출력하는 텍스트
+
     public Text dayText;            //현재 일차를 출력하는 텍스트
     public Text dayTextTitle;       //다음 일차로 넘어갈 떄 일차를 출력하는 텍스트 
+    
     public Text orderCountText;     //지금까지 주문 받은 수와, 목표치 표시
     public Text starText;           //현재 평점을 표시
 
+    public Text orderValueReciptText;     //손님이 요구하는 값을 출력하는 텍스트
+    public Text orderResultReciptText;    //내가 받은 값을 출력하는 텍스트
+    public Text customerNameReciptText;   //손님의 이름 출력
 
     //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
@@ -81,6 +87,11 @@ public class OrderSystenManager : MonoBehaviour
     {
         customerNameText.text = customerName[customerNumber] + " 님 주문 감사합니다.".ToString();
         orderValueText.text = "주문 내역: $ " + orderValue.ToString();
+        pizzaNameText.text = PizzaName[pizzaNumber];
+
+        customerNameReciptText.text = customerName[customerNumber] + " 님".ToString();
+        orderValueReciptText.text = "$" + orderValue.ToString();
+
         starText.text = "★ :" + star.ToString("N1");    //평점이 몇 점인지 표시
         dayText.text = "Day " + day.ToString(); //몇 일차인지 표시
         orderCountText.text = orderCount + " / " + dayCount.ToString(); //몇 번의 주문을 받아야 하는지 표시
@@ -92,6 +103,7 @@ public class OrderSystenManager : MonoBehaviour
         {
 
             orderResultText.text = "결과: $ 0".ToString();
+            orderResultReciptText.text = "$0".ToString();
             customerNumber = Random.Range(0, 10);
             valueDisplay.text = "아직 없음".ToString();
             //말풍선에 손님이 요구하는 값 출력하기
@@ -232,7 +244,7 @@ public class OrderSystenManager : MonoBehaviour
     {
         orderButten.SetActive(false);
         isReciptPrint = true;
-        Invoke("ToCookingScene",5f);
+        Invoke("ToCookingScene",6.5f);
     }
 
     public void ToCookingScene()
@@ -338,8 +350,15 @@ public class OrderSystenManager : MonoBehaviour
         //주문 실패했을 때의 후기 출력
     }
 
-    private string[] customerName = //손님 이름 배열
-        { "맛있으면 웃는 사람", //0
+    public static string[] PizzaName = //피자 이름 배열
+        { 
+          "Just 피자", //0
+          "오징어 먹물 피자",
+        };
+
+    public static string[] customerName = //손님 이름 배열
+        { 
+          "맛있으면 웃는 사람", //0
           "피자 비평가",
           "삶은 달걀이다",
           "햄버거 호소인",
@@ -350,7 +369,7 @@ public class OrderSystenManager : MonoBehaviour
           "웃음꽃 피자",
           "분노조절잘함",
           "노란색 토끼", //10
-    };
+        };
 
     private string[] orderFailedArray = //주문 실패 시 대사 배열
         { 

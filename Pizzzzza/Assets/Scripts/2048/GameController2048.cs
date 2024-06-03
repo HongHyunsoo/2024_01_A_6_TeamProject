@@ -20,6 +20,9 @@ public class GameController2048 : MonoBehaviour
 
     public static Action<string> slide;
     public static int myScore;  //점수 값
+    public Text customerNameText;   //손님의 이름 출력
+    public Text pizzaNameText;
+
     public GameObject finishOrder;
     public GameObject pizzaImage;
     public GameObject toppingImage;
@@ -27,11 +30,13 @@ public class GameController2048 : MonoBehaviour
     int gameOver;
     [SerializeField] GameObject gameOverPanel;
 
-
+    
 
     void Start()
     {
         pizzaImage.SetActive(true);
+        pizzaNameText.text = OrderSystenManager.PizzaName[OrderSystenManager.pizzaNumber];
+        customerNameText.text = OrderSystenManager.customerName[OrderSystenManager.customerNumber] + " 님".ToString();
         Invoke("pizzaTopping", 1.0f);
         moveCountDisplay.text = moveCount.ToString();
         goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
