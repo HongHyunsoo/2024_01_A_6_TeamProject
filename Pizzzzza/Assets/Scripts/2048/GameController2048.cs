@@ -34,12 +34,17 @@ public class GameController2048 : MonoBehaviour
 
     void Start()
     {
+
         pizzaImage.SetActive(true);
+
         pizzaNameText.text = OrderSystenManager.PizzaName[OrderSystenManager.pizzaNumber];
         customerNameText.text = OrderSystenManager.customerName[OrderSystenManager.customerNumber] + " ดิ".ToString();
-        Invoke("pizzaTopping", 1.0f);
         moveCountDisplay.text = moveCount.ToString();
         goalScoreDisplay.text = "$ " + OrderSystenManager.orderValue.ToString();
+
+        Invoke("pizzaTopping", 1.0f);
+        
+        
         OrderSystenManager.isNextDay = false;
         OrderSystenManager.isGameOver = false;
 

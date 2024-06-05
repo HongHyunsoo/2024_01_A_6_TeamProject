@@ -58,7 +58,7 @@ public class OrderSystenManager : MonoBehaviour
 
     public void Start()
     {
-        
+
         nextDayGroup.SetActive(false);
 
         //만약 요리가 끝난 상태라면 요리 끝 로직으로
@@ -114,6 +114,8 @@ public class OrderSystenManager : MonoBehaviour
     {
         orderCount++;   //받은 주문 카운트 +1
 
+        SoundManager.instance.PlaySound("Butten_3");
+
         if (star <= 0)
         {
             Ending.isBadEnding = true;
@@ -162,6 +164,7 @@ public class OrderSystenManager : MonoBehaviour
 
     public void NextDayButten() //다음 일차 버튼을 눌렀을 때
     {
+        SoundManager.instance.PlaySound("Butten_3");
         nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
 
         LevelSetting();
@@ -242,6 +245,8 @@ public class OrderSystenManager : MonoBehaviour
 
     public void PressCookingButten()
     {
+
+        SoundManager.instance.PlaySound("Butten_3");
         orderButten.SetActive(false);
         isReciptPrint = true;
         Invoke("ToCookingScene",6.5f);

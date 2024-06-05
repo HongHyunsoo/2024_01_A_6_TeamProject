@@ -9,6 +9,7 @@ public class ExitButton : MonoBehaviour
     public void ExitGame()
     {
         //게임 종료
+        SoundManager.instance.PlaySound("Butten_1");
         Application.Quit();
     }
 }

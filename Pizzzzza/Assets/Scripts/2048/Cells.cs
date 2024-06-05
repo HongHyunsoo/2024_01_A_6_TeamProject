@@ -75,7 +75,7 @@ public class Cells : MonoBehaviour
             }
             if (nextCell.fill != null)   //만약 다음 셀이 비어있지 않다면
             {
-                if (currentCell.fill.value == nextCell.fill.value)   //나와 상대의 값이 같다면
+                if (currentCell.fill.value == nextCell.fill.value && currentCell.fill.value <= 5000 && nextCell.fill.value <= 5000)  //나와 상대의 값이 같다면
                 {
                     nextCell.fill.Double(); //값을 합치기
                     nextCell.fill.transform.parent = currentCell.transform;
@@ -131,7 +131,7 @@ public class Cells : MonoBehaviour
             }
             if (nextCell.fill != null)  
             {
-                if (currentCell.fill.value == nextCell.fill.value)  
+                if (currentCell.fill.value == nextCell.fill.value && currentCell.fill.value <= 5000 && nextCell.fill.value <= 5000)
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
@@ -186,7 +186,7 @@ public class Cells : MonoBehaviour
             }
             if (nextCell.fill != null)   
             {
-                if (currentCell.fill.value == nextCell.fill.value)   
+                if (currentCell.fill.value == nextCell.fill.value && currentCell.fill.value <= 5000 && nextCell.fill.value <= 5000)
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
@@ -242,7 +242,7 @@ public class Cells : MonoBehaviour
             }
             if (nextCell.fill != null) 
             {
-                if (currentCell.fill.value == nextCell.fill.value)   
+                if (currentCell.fill.value == nextCell.fill.value && currentCell.fill.value <= 5000 && nextCell.fill.value <= 5000)
                 {
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
