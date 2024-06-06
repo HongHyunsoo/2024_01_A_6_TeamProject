@@ -77,7 +77,7 @@ public class OrderSystenManager : MonoBehaviour
 
             LevelSetting();
 
-            Invoke("MakeCustomer", 1.5f);   //1.5초 뒤에 첫 손님을 생성하기
+            Invoke("MakeCustomer", Random.Range(1.2f, 3.2f));   //1.5초 뒤에 첫 손님을 생성하기
         }
 
 
@@ -229,6 +229,7 @@ public class OrderSystenManager : MonoBehaviour
         //GameObject instantCustomerObj = Instantiate(customerPrefab, customerGroup);
         //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
         //Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
+        SoundManager.instance.PlaySound("Money");
         pizzaNumber = Random.Range(0, 2);
         Debug.Log(pizzaNumber);
         customerGroup.SetActive(true);

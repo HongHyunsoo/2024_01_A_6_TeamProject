@@ -70,6 +70,7 @@ public class GameController2048 : MonoBehaviour
 
     public void FinishOrder()
     {
+        SoundManager.instance.PlaySound("Butten_2");
         OrderSystenManager.isGameOver = true;
         SceneManager.LoadScene(1);
     }
@@ -219,6 +220,7 @@ public class GameController2048 : MonoBehaviour
 
     public void ToOrderScene()
     {
+        SoundManager.instance.PlaySound("Butten_2");
         SceneManager.LoadScene(1);
         
     }

@@ -34,10 +34,10 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);      //Scene이 변경되어도 (이 오브젝트는) 파괴되지 않는다.
         }
-        else
-        {
-            Destroy(gameObject);                //이미 다른 오브젝트가 있을 경우 파괴한다. 클래스를 전역으로 1개를 유지 시킬 수 있다.
-        }
+        //else
+        //{
+            //Destroy(gameObject);                //이미 다른 오브젝트가 있을 경우 파괴한다. 클래스를 전역으로 1개를 유지 시킬 수 있다.
+        //}
 
         foreach (Sound sound in sounds)
         {

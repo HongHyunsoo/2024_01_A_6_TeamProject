@@ -244,6 +244,7 @@ public class Cells : MonoBehaviour
             {
                 if (currentCell.fill.value == nextCell.fill.value && currentCell.fill.value <= 5000 && nextCell.fill.value <= 5000)
                 {
+                    
                     nextCell.fill.Double();
                     nextCell.fill.transform.parent = currentCell.transform;
                     currentCell.fill = nextCell.fill;

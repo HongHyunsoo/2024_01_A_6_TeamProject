@@ -46,7 +46,7 @@ public class Fill : MonoBehaviour
 
     public void Double()
     {
-        
+        SoundManager.instance.PlaySound("Bubble");
         value *= 2;
         GameController2048.instance.ScoreUpdate(value);
         Topping_animater.SetInteger("Value", level = value);
