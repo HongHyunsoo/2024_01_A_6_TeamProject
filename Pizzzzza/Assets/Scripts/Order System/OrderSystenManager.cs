@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class OrderSystenManager : MonoBehaviour
 {
@@ -114,19 +115,13 @@ public class OrderSystenManager : MonoBehaviour
     {
         orderCount++;   //받은 주문 카운트 +1
 
-        SoundManager.instance.PlaySound("Butten_3");
+        SoundManager.instance.PlaySound("Butten_3"); //버튼 소리 재생
 
-        if (star <= 0)
-        {
-            Ending.isBadEnding = true;
-            SceneManager.LoadScene(2);
-        }
-
-        if (orderCount == dayCount)
+        if (orderCount == dayCount && star >= 0.5f)
         {
             NextDay();      //다음 날 로직 실행헤서 조건 충족 시 다음날로
         }
-        else if (orderCount < dayCount)
+        else if (orderCount < dayCount && star >= 0.5f)
         //내가 지금까지 받은 손님의 수가 다음 일차 조건보다 낮을 경우
         {
             orderButten.SetActive(false);   //주문 버튼 비활성화
@@ -134,10 +129,15 @@ public class OrderSystenManager : MonoBehaviour
             orderGroup.SetActive(false);     //주문에 관한 UI그룹 비활성화
             Invoke("MakeCustomer", 1.5f);    //1.5초 후에 다음 손님 생성
         }
-
+        else if (star <= 0)
+        {
+            Ending.isBadEnding = true;  //베드 엔딩 조건 True
+            SceneManager.LoadScene("Scene_Ending");  //엔딩 씬으로 이동
+        }
+        
     }
 
-    public void NextDay()
+    public void NextDay()   //다음 날
     {
         if (orderCount == dayCount)
         //지금까지 내가 받은 손님의 수가 다음 일차로 넘어가기 위한 손님의 수를 충족한다면
@@ -164,6 +164,12 @@ public class OrderSystenManager : MonoBehaviour
 
     public void NextDayButten() //다음 일차 버튼을 눌렀을 때
     {
+
+        if (day == 11)
+        {
+            Ending.isBadEnding = false;  //베드 엔딩 조건 false
+            SceneManager.LoadScene("Scene_Ending");  //엔딩 씬으로 이동
+        }
         SoundManager.instance.PlaySound("Butten_3");
         nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
 
@@ -504,7 +510,8 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 4)
         {
-            orderValue = Random.Range(4000, 6000);
+            orderValue = Random.Range(4000, 5000);
+            GameController2048.moveCount = 500;
         }
 
         else if (orderLevel == 5)
@@ -582,6 +589,26 @@ public class OrderSystenManager : MonoBehaviour
         else if (day == 4 || day == 5)
         {
             orderLevel = 2;
+            OrderCount();
+        }
+        else if (day == 5 || day == 6)
+        {
+            orderLevel = 3;
+            OrderCount();
+        }
+        else if (day == 7 || day == 8)
+        {
+            orderLevel = 3;
+            OrderCount();
+        }
+        else if (day == 9)
+        {
+            orderLevel = 3;
+            OrderCount();
+        }
+        else if (day == 10)
+        {
+            orderLevel = 3;
             OrderCount();
         }
     }

@@ -32,7 +32,7 @@ public class ReciptPrint : MonoBehaviour
             randomY_1 = Random.Range(300, 400);
             randomY_2 = Random.Range(450, 500);
             randomY_3 = Random.Range(560, 680);
-            randomY_4 = Random.Range(800, 850);
+            randomY_4 = Random.Range(1030, 1080);
 
             SoundManager.instance.PlaySound("Receipt Printing");
 
@@ -41,7 +41,7 @@ public class ReciptPrint : MonoBehaviour
             transform.DOLocalMoveY(randomY_3, 0.1f).SetDelay(2.9f);
             transform.DOLocalMoveY(randomY_4, 0.4f).SetDelay(3.7f);
 
-            upperRecipt.transform.DOMoveY(500, 0.3f).SetDelay(4.7f);
+            upperRecipt.transform.DOMoveY(700, 0.3f).SetDelay(4.7f);
 
             Invoke("PlaySound", 4.5f);
             

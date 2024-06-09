@@ -13,12 +13,6 @@ public class Ending : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         if (isBadEnding == true)
         {
             badEndingGroup.SetActive(true);
@@ -28,4 +22,16 @@ public class Ending : MonoBehaviour
             goodEndingGroup.SetActive(true);
         }
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void GoToMain()
+    {
+        SceneManager.LoadScene(0);
+    } 
+
 }
