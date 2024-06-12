@@ -33,6 +33,7 @@ public class OrderSystenManager : MonoBehaviour
     public GameObject orderButten;  //주문을 받을 때의 버튼
     public GameObject customerGroup;    //손님을 할당하는 그룹
     public GameObject nextOrderButten;  //다음 손님을 받을 때의 버튼
+
     public GameObject nextDayGroup;     //다음 날로 넘어갈 때 UI
 
 
@@ -56,23 +57,30 @@ public class OrderSystenManager : MonoBehaviour
 
     [Header("---------------------[ Calculate Text ]")]
 
-    public Text OrderValue_1_Text;
-    public Text OrderValue_2_Text;
-    public Text OrderValue_3_Text;
-    public Text OrderValue_4_Text;
-    public Text OrderValue_5_Text;
+    public GameObject DayOverCalculateGroup;
+    private Tween fadeTween;
 
-    public Text SumDayOrderValue_Text;
+    public Text orderValue_1_Text;
+    public Text orderValue_2_Text;
+    public Text orderValue_3_Text;
+    public Text orderValue_4_Text;
+    public Text orderValue_5_Text;
+
+    public Text sumPastEntire_Text;
+    public Text sumDay_Text;
+    public Text sumEntire_Text; //
 
     //정산
-    public static int OrderValue_1;
-    public static int OrderValue_2;
-    public static int OrderValue_3;
-    public static int OrderValue_4;
-    public static int OrderValue_5;
+    public static int orderValue_1;
+    public static int orderValue_2;
+    public static int orderValue_3;
+    public static int orderValue_4;
+    public static int orderValue_5;
 
     public static int sumDayOrderValue;
     public static int sumEntireOrderValue;
+
+    
 
     //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
@@ -166,20 +174,31 @@ public class OrderSystenManager : MonoBehaviour
             dayText.text = "Day " + day.ToString();
             orderCount = 0;
 
+            DayOverCalculate();
+            DayOverCalculateGroup.SetActive(true);
             orderButten.SetActive(false);
             nextOrderButten.SetActive(false);
             orderGroup.SetActive(false);
-            nextDayGroup.SetActive(true);
-            customerGroup.SetActive(false);
-
-            dayTextTitle.text = "Day " + day.ToString();
-
-            isNextDay = true;
         }
         else
         {
             return;
         }
+    }
+
+   
+
+    public void OrderCalculateButten()
+    {
+        DayOverCalculateGroup.SetActive(false);
+        nextDayGroup.SetActive(true);
+        customerGroup.SetActive(false);
+
+        dayTextTitle.text = "Day " + day.ToString();
+
+        isNextDay = true;
+
+        Invoke("NextDayButten", 2f);
     }
 
     public void NextDayButten() //다음 일차 버튼을 눌렀을 때
@@ -192,6 +211,7 @@ public class OrderSystenManager : MonoBehaviour
         }
         SoundManager.instance.PlaySound("Butten_3");
         nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+
 
         LevelSetting();
         Invoke("MakeCustomer", 1.5f);
@@ -208,7 +228,7 @@ public class OrderSystenManager : MonoBehaviour
             //만약 플레이어의 점수가 손님이 요구하는 점수보다 낮다면
             {
                 OrderFailedArray();
-                
+                OrderFailedCalculate();
                 star -= 1f;  //평점 1점 감소
                 Debug.Log(star);
             }
@@ -239,33 +259,75 @@ public class OrderSystenManager : MonoBehaviour
 
     }
 
+    public void DayOverCalculate()
+    {
+        sumPastEntire_Text.text = sumEntireOrderValue.ToString();
+
+
+        orderValue_1_Text.text = orderValue_1.ToString();
+        orderValue_2_Text.text = orderValue_2.ToString();
+        orderValue_3_Text.text = orderValue_3.ToString();
+        orderValue_4_Text.text = orderValue_4.ToString();
+        orderValue_5_Text.text = orderValue_5.ToString();
+
+        sumDayOrderValue = orderValue_1 + orderValue_2 + orderValue_3 + orderValue_4 + orderValue_5;
+        sumEntireOrderValue = sumDayOrderValue + sumEntireOrderValue;
+
+        sumDay_Text.text = sumDayOrderValue.ToString();
+        sumEntire_Text.text = sumEntireOrderValue.ToString();
+
+    }
     public void OrderSeccessCalculate()
     {
         if (orderCount == 0)
         {
-            OrderValue_1 = GameController2048.myScore;
-            OrderValue_1_Text.text = OrderValue_1.ToString();
+            orderValue_1 = GameController2048.myScore;
 
         }
         else if (orderCount == 1)
         {
-            OrderValue_2 = GameController2048.myScore;
-            OrderValue_2_Text.text = OrderValue_2.ToString();
+            orderValue_2 = GameController2048.myScore;
         }
         else if (orderCount == 2)
         {
-            OrderValue_3 = GameController2048.myScore;
-            OrderValue_3_Text.text = OrderValue_3.ToString();
+            orderValue_3 = GameController2048.myScore;
         }
         else if (orderCount == 3)
         {
-            OrderValue_4 = GameController2048.myScore;
-            OrderValue_4_Text.text = OrderValue_4.ToString();
+            orderValue_4 = GameController2048.myScore;
         }
         else if (orderCount == 4)
         {
-            OrderValue_5 = GameController2048.myScore;
-            OrderValue_5_Text.text = OrderValue_5.ToString();
+            orderValue_5 = GameController2048.myScore;
+        }
+    }
+    public void OrderFailedCalculate()
+    {
+        if (orderCount == 0)
+        {
+            orderValue_1 = 0;
+            orderValue_1_Text.text = orderValue_1.ToString();
+
+        }
+        else if (orderCount == 1)
+        {
+            orderValue_2 = 0;
+            orderValue_2_Text.text = orderValue_2.ToString();
+        }
+        else if (orderCount == 2)
+        {
+            orderValue_3 = 0;
+            orderValue_3_Text.text = orderValue_3.ToString();
+        }
+        else if (orderCount == 3)
+        {
+            orderValue_4 = 0;
+            orderValue_4_Text.text = orderValue_4.ToString();
+        }
+        else if (orderCount == 4)
+        {
+            orderValue_5 = 0;
+            orderValue_5_Text.text = orderValue_5.ToString();
         }
     }
 

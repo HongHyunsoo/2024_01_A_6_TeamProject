@@ -6,5 +6,5 @@ using static UnityEngine.GraphicsBuffer;
 
 public class NextDay : MonoBehaviour
 {
-    
+   
 }
