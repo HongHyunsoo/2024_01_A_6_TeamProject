@@ -17,6 +17,7 @@ public class OrderSystenManager : MonoBehaviour
     public static int customerNumber;      //손님의 번호
     public static int pizzaNumber;         //피자 메뉴 번호
     
+
     public static float star;     //가게의 평점
 
 
@@ -53,9 +54,27 @@ public class OrderSystenManager : MonoBehaviour
     public Text orderResultReciptText;    //내가 받은 값을 출력하는 텍스트
     public Text customerNameReciptText;   //손님의 이름 출력
 
+    [Header("---------------------[ Calculate Text ]")]
+
+    public Text OrderValue_1_Text;
+    public Text OrderValue_2_Text;
+    public Text OrderValue_3_Text;
+    public Text OrderValue_4_Text;
+    public Text OrderValue_5_Text;
+
+    public Text SumDayOrderValue_Text;
+
+    //정산
+    public static int OrderValue_1;
+    public static int OrderValue_2;
+    public static int OrderValue_3;
+    public static int OrderValue_4;
+    public static int OrderValue_5;
+
+    public static int sumDayOrderValue;
+    public static int sumEntireOrderValue;
+
     //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
-
-
 
     public void Start()
     {
@@ -102,11 +121,12 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (isCustomerHere == true)     //손님이 화면에 있다면
         {
-
             orderResultText.text = "결과: $ 0".ToString();
             orderResultReciptText.text = "$0".ToString();
             customerNumber = Random.Range(0, 10);
             valueDisplay.text = "아직 없음".ToString();
+            
+            
             //말풍선에 손님이 요구하는 값 출력하기
         }
     }
@@ -196,6 +216,7 @@ public class OrderSystenManager : MonoBehaviour
             //만약 플레이어의 점수가 손님이 요구하는 점수보다 높거나 같다면
             {
                 OrderSuccessArray();
+                OrderSeccessCalculate();
                 if (star == 5)
                 {
                     star += 0.0f;     //평점 1점 증가
@@ -206,7 +227,8 @@ public class OrderSystenManager : MonoBehaviour
                     star += 0.5f;     //평점 1점 증가
                     Debug.Log(star);
                 }
-                
+
+
             }
 
         }
@@ -215,6 +237,36 @@ public class OrderSystenManager : MonoBehaviour
         orderButten.SetActive(false);
         nextOrderButten.SetActive(true);
 
+    }
+
+    public void OrderSeccessCalculate()
+    {
+        if (orderCount == 0)
+        {
+            OrderValue_1 = GameController2048.myScore;
+            OrderValue_1_Text.text = OrderValue_1.ToString();
+
+        }
+        else if (orderCount == 1)
+        {
+            OrderValue_2 = GameController2048.myScore;
+            OrderValue_2_Text.text = OrderValue_2.ToString();
+        }
+        else if (orderCount == 2)
+        {
+            OrderValue_3 = GameController2048.myScore;
+            OrderValue_3_Text.text = OrderValue_3.ToString();
+        }
+        else if (orderCount == 3)
+        {
+            OrderValue_4 = GameController2048.myScore;
+            OrderValue_4_Text.text = OrderValue_4.ToString();
+        }
+        else if (orderCount == 4)
+        {
+            OrderValue_5 = GameController2048.myScore;
+            OrderValue_5_Text.text = OrderValue_5.ToString();
+        }
     }
 
     public void DeleteCustomer()    //현재 손님을 지우고 다음 손님을 받는 로직
@@ -236,15 +288,14 @@ public class OrderSystenManager : MonoBehaviour
         //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
         //Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
         SoundManager.instance.PlaySound("Money");
-        pizzaNumber = Random.Range(0, 2);
+        pizzaNumber = Random.Range(0, 2); //피자 랜덤 생성
         Debug.Log(pizzaNumber);
+
         customerGroup.SetActive(true);
         orderButten.SetActive(true);
         nextOrderButten.SetActive(false);
         isCustomerHere = true;      //손님이 생성되었기 때문에 손님의 존재 여부를 참으로 설정
         orderGroup.SetActive(true);
-
-
 
         ValueSetting();
         StartOrder();
@@ -488,6 +539,7 @@ public class OrderSystenManager : MonoBehaviour
         {
             orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
             GameController2048.moveCount = 70;
+            
         }
 
         else if (orderLevel == 1)
