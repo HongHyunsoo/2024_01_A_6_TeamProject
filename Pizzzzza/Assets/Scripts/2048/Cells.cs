@@ -53,10 +53,22 @@ public class Cells : MonoBehaviour
         }
 
         GameController2048.ticker++;
-        if(GameController2048.ticker == 4)
+
+        if(OrderSystenManager.day < OrderSystenManager.changePizzaSize)
         {
-            GameController2048.instance.SpawnFill();
+            if (GameController2048.ticker == 4)
+            {
+                GameController2048.instance.SpawnFill();
+            }
         }
+        else if (OrderSystenManager.day >= OrderSystenManager.changePizzaSize)
+        {
+            if (GameController2048.ticker == 5)
+            {
+                GameController2048.instance.SpawnFill();
+            }
+        }
+
     }
 
     void SlideUp(Cells currentCell) 
@@ -316,6 +328,16 @@ public class Cells : MonoBehaviour
             if (right.fill.value == fill.value)
                 return;
         }
-        GameController2048.instance.GameOverCheck();
+
+        if(OrderSystenManager.day >= OrderSystenManager.changePizzaSize)
+        {
+
+            GameController2048.instance.GameOverCheck5x5();
+        }
+        else if(OrderSystenManager.day < OrderSystenManager.changePizzaSize)
+        {
+
+            GameController2048.instance.GameOverCheck();
+        }
     }
 }

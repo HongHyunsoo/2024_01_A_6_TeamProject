@@ -16,6 +16,8 @@ public class OrderSystenManager : MonoBehaviour
     public static int orderValue;          //손님이 요구하는 피자의 값어치
     public static int customerNumber;      //손님의 번호
     public static int pizzaNumber;         //피자 메뉴 번호
+
+    public static int changePizzaSize = 3;  //5x5가 적용되는 일차
     
 
     public static float star;     //가게의 평점
@@ -374,7 +376,14 @@ public class OrderSystenManager : MonoBehaviour
 
     public void ToCookingScene()
     {
-        SceneManager.LoadScene(2);
+        if(day < changePizzaSize)
+        {
+            SceneManager.LoadScene("Scene_2048");
+        }
+        else if(day >= changePizzaSize)
+        {
+            SceneManager.LoadScene("Scene_2048_5x5");
+        }
     }
 
     void OrderFailedArray()
@@ -600,7 +609,7 @@ public class OrderSystenManager : MonoBehaviour
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
             orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
-            GameController2048.moveCount = 70;
+            GameController2048.moveCount = 7000;
             
         }
 

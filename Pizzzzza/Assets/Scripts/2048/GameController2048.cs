@@ -208,6 +208,15 @@ public class GameController2048 : MonoBehaviour
             OrderSystenManager.isGameOver = true;
         }
     }
+    public void GameOverCheck5x5()
+    {
+        gameOver++;
+        if (gameOver >= 25)
+        {
+            gameOverPanel.SetActive(true);
+            OrderSystenManager.isGameOver = true;
+        }
+    }
 
     public void MoveOverCheck()
     {
