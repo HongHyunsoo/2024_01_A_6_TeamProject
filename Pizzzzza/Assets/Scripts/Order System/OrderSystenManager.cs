@@ -17,9 +17,10 @@ public class OrderSystenManager : MonoBehaviour
     public static int customerNumber;      //손님의 번호
     public static int pizzaNumber;         //피자 메뉴 번호
 
+    public float CustomerAppearTime;        // 손님 등장 시간 랜덤
+
     public static int changePizzaSize = 3;  //5x5가 적용되는 일차
     
-
     public static float star;     //가게의 평점
 
 
@@ -37,6 +38,7 @@ public class OrderSystenManager : MonoBehaviour
     public GameObject nextOrderButten;  //다음 손님을 받을 때의 버튼
 
     public GameObject nextDayGroup;     //다음 날로 넘어갈 때 UI
+
 
 
     [Header("---------------------[ Text ]")]
@@ -82,13 +84,18 @@ public class OrderSystenManager : MonoBehaviour
     public static int sumDayOrderValue;
     public static int sumEntireOrderValue;
 
-    
+    [Header("---------------------[ New Event ]")]
+
+    public GameObject[] NewEventGroup;
+    public int NewEventNumber;
+
+
 
     //public Transform customerGroup;    //손님의 프리팹을 할당 할 그룹
 
     public void Start()
     {
-
+        CustomerAppearTime = Random.Range(0.8f, 2.0f);
         nextDayGroup.SetActive(false);
 
         //만약 요리가 끝난 상태라면 요리 끝 로직으로
@@ -107,7 +114,7 @@ public class OrderSystenManager : MonoBehaviour
 
             LevelSetting();
 
-            Invoke("MakeCustomer", Random.Range(1.2f, 3.2f));   //1.5초 뒤에 첫 손님을 생성하기
+            Invoke("MakeCustomer", CustomerAppearTime);   //1.5초 뒤에 첫 손님을 생성하기
         }
 
 
@@ -157,7 +164,7 @@ public class OrderSystenManager : MonoBehaviour
             orderButten.SetActive(false);   //주문 버튼 비활성화
             nextOrderButten.SetActive(false);//다음 주문 받기 버튼 비활성화
             orderGroup.SetActive(false);     //주문에 관한 UI그룹 비활성화
-            Invoke("MakeCustomer", 1.5f);    //1.5초 후에 다음 손님 생성
+            Invoke("MakeCustomer", CustomerAppearTime);    //1.5초 후에 다음 손님 생성
         }
         else if (star <= 0)
         {
@@ -200,7 +207,8 @@ public class OrderSystenManager : MonoBehaviour
 
         isNextDay = true;
 
-        Invoke("NextDayButten", 2f);
+        NextDayButten();
+        Invoke("NewEvent", 5.0f);
     }
 
     public void NextDayButten() //다음 일차 버튼을 눌렀을 때
@@ -212,11 +220,52 @@ public class OrderSystenManager : MonoBehaviour
             SceneManager.LoadScene("Scene_Ending");  //엔딩 씬으로 이동
         }
         SoundManager.instance.PlaySound("Butten_3");
-        nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
 
 
         LevelSetting();
-        Invoke("MakeCustomer", 1.5f);
+    }
+
+    public void NewEvent()
+    {
+        if (day == 3)
+        {
+            SoundManager.instance.PlaySound("NewEvent");
+            NewEventNumber = 0;
+            NewEventGroup[0].SetActive(true);
+
+            nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+        }
+        else if (day == 7)
+        {
+            SoundManager.instance.PlaySound("NewEvent");
+            NewEventNumber = 1;
+            NewEventGroup[1].SetActive(true);
+
+            nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+        }
+        else if (day == 11)
+        {
+            SoundManager.instance.PlaySound("NewEvent");
+            NewEventNumber = 2;
+            NewEventGroup[2].SetActive(true);
+
+            nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+        }
+        else
+        {
+
+            nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
+            Invoke("MakeCustomer", CustomerAppearTime);
+        }
+        
+    }
+
+    public void NewEventButten()
+    {
+        NewEventGroup[NewEventNumber].SetActive(false);
+        SoundManager.instance.PlaySound("Butten_3");
+        Invoke("MakeCustomer", CustomerAppearTime);
+
     }
 
     public void CookingFinish()     //요리가 끝난 후에 실행
@@ -272,14 +321,14 @@ public class OrderSystenManager : MonoBehaviour
         orderValue_4_Text.text = orderValue_4.ToString();
         orderValue_5_Text.text = orderValue_5.ToString();
 
-        sumDayOrderValue = orderValue_1 + orderValue_2 + orderValue_3 + orderValue_4 + orderValue_5;
-        sumEntireOrderValue = sumDayOrderValue + sumEntireOrderValue;
+        sumDayOrderValue = orderValue_1 + orderValue_2 + orderValue_3 + orderValue_4 + orderValue_5;    //일일 수익 계산
+        sumEntireOrderValue = sumDayOrderValue + sumEntireOrderValue;   //햡계 수익을 일일 수익과 인전 총 수입을 합해서 계산한 수 적용
 
         sumDay_Text.text = sumDayOrderValue.ToString();
         sumEntire_Text.text = sumEntireOrderValue.ToString();
 
     }
-    public void OrderSeccessCalculate()
+    public void OrderSeccessCalculate()         //주문 성공 시 정산
     {
         if (orderCount == 0)
         {
@@ -303,7 +352,7 @@ public class OrderSystenManager : MonoBehaviour
             orderValue_5 = GameController2048.myScore;
         }
     }
-    public void OrderFailedCalculate()
+    public void OrderFailedCalculate()      //주문 실패 시 정산
     {
         if (orderCount == 0)
         {
@@ -352,8 +401,7 @@ public class OrderSystenManager : MonoBehaviour
         //인스턴스화 된 손님 오브젝트에 customer스크립트를 할당하기 
         //Customer instantCustomer = instantCustomerObj.GetComponent<Customer>();
         SoundManager.instance.PlaySound("Money");
-        pizzaNumber = Random.Range(0, 2); //피자 랜덤 생성
-        Debug.Log(pizzaNumber);
+        PizzaRecipe();      //피자 메뉴 설정
 
         customerGroup.SetActive(true);
         orderButten.SetActive(true);
@@ -363,6 +411,23 @@ public class OrderSystenManager : MonoBehaviour
 
         ValueSetting();
         StartOrder();
+    }
+
+    void PizzaRecipe()      //피자 메뉴 설정
+    {
+        if (day <= 2)
+        {
+            pizzaNumber = 0;
+        }
+        else if (day >= 3 && day <= 6)  //일차가 3보타 크거나 같고 6보다 작거나 같다
+        {
+            pizzaNumber = Random.Range(0, 2); //0,1번 피자 중 랜덤 생성
+        }
+        else if (day >= 7 && day <= 10)  //일차가 6보타 크거나 같고 9보다 작거나 같다
+        {
+            pizzaNumber = Random.Range(0, 3); //0~2번 피자 중 랜덤 생성
+        }
+
     }
 
     public void PressCookingButten()
@@ -609,62 +674,68 @@ public class OrderSystenManager : MonoBehaviour
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
             orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
-            GameController2048.moveCount = 7000;
+            GameController2048.moveCount = 70;
             
         }
 
         else if (orderLevel == 1)
         {
-            orderValue = Random.Range(700, 1000);
+            orderValue = Random.Range(900, 1000);
             GameController2048.moveCount = 110;
         }
 
         else if (orderLevel == 2)
         {
-            orderValue = Random.Range(1000, 1500);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(1300, 1500);
+            GameController2048.moveCount = 160;
         }
 
         else if (orderLevel == 3)
         {
-            orderValue = Random.Range(2000, 2500);
-            GameController2048.moveCount = 300;
+            orderValue = Random.Range(1500, 1700);
+            GameController2048.moveCount = 170;
         }
 
         else if (orderLevel == 4)
         {
-            orderValue = Random.Range(4000, 5000);
-            GameController2048.moveCount = 500;
+            orderValue = Random.Range(1900, 2100);
+            GameController2048.moveCount = 190;
         }
 
         else if (orderLevel == 5)
         {
-            orderValue = Random.Range(8000, 10000);
+            orderValue = Random.Range(2200, 2300);
+            GameController2048.moveCount = 200;
         }
 
         else if (orderLevel == 6)
         {
-            orderValue = Random.Range(12000, 14000);
+            orderValue = Random.Range(3800, 4000);
+            GameController2048.moveCount = 250;
         }
 
         else if (orderLevel == 7)
         {
             orderValue = Random.Range(15000, 17000);
+            GameController2048.moveCount = 250;
         }
 
         else if (orderLevel == 8)
         {
             orderValue = Random.Range(18000, 20000);
+            GameController2048.moveCount = 250;
         }
 
         else if (orderLevel == 9)
         {
             orderValue = Random.Range(21000, 23000);
+            GameController2048.moveCount = 250;
         }
 
         else if (orderLevel == 10)
         {
             orderValue = 25000;
+            GameController2048.moveCount = 250;
         }
 
 
@@ -721,17 +792,37 @@ public class OrderSystenManager : MonoBehaviour
         }
         else if (day == 7 || day == 8)
         {
-            orderLevel = 3;
+            orderLevel = 4;
             OrderCount();
         }
         else if (day == 9)
         {
-            orderLevel = 3;
+            orderLevel = 5;
             OrderCount();
         }
         else if (day == 10)
         {
-            orderLevel = 3;
+            orderLevel = 6;
+            OrderCount();
+        }
+        else if (day == 11)
+        {
+            orderLevel = 7;
+            OrderCount();
+        }
+        else if (day == 12)
+        {
+            orderLevel = 8;
+            OrderCount();
+        }
+        else if (day == 13)
+        {
+            orderLevel = 9;
+            OrderCount();
+        }
+        else if (day == 14)
+        {
+            orderLevel = 10;
             OrderCount();
         }
     }
