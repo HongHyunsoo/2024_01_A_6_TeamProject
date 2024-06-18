@@ -214,7 +214,7 @@ public class OrderSystenManager : MonoBehaviour
     public void NextDayButten() //다음 일차 버튼을 눌렀을 때
     {
 
-        if (day == 11)
+        if (day == 14)
         {
             Ending.isBadEnding = false;  //베드 엔딩 조건 false
             SceneManager.LoadScene("Scene_Ending");  //엔딩 씬으로 이동
@@ -423,7 +423,7 @@ public class OrderSystenManager : MonoBehaviour
         {
             pizzaNumber = Random.Range(0, 2); //0,1번 피자 중 랜덤 생성
         }
-        else if (day >= 7 && day <= 10)  //일차가 6보타 크거나 같고 9보다 작거나 같다
+        else if (day >= 7 && day <= 14)  //일차가 6보타 크거나 같고 9보다 작거나 같다
         {
             pizzaNumber = Random.Range(0, 3); //0~2번 피자 중 랜덤 생성
         }
@@ -553,6 +553,7 @@ public class OrderSystenManager : MonoBehaviour
         { 
           "Just 피자", //0
           "오징어 먹물 피자",
+          "이탈리안 피자"
         };
 
     public static string[] customerName = //손님 이름 배열
@@ -673,8 +674,8 @@ public class OrderSystenManager : MonoBehaviour
     {
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
-            orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
-            GameController2048.moveCount = 70;
+            orderValue = Random.Range(4, 5);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
+            GameController2048.moveCount = 2;
             
         }
 
@@ -716,26 +717,26 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 7)
         {
-            orderValue = Random.Range(15000, 17000);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(5000, 5500);
+            GameController2048.moveCount = 260;
         }
 
         else if (orderLevel == 8)
         {
-            orderValue = Random.Range(18000, 20000);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(6200, 6800);
+            GameController2048.moveCount = 270;
         }
 
         else if (orderLevel == 9)
         {
-            orderValue = Random.Range(21000, 23000);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(7800, 8000);
+            GameController2048.moveCount = 300;
         }
 
         else if (orderLevel == 10)
         {
-            orderValue = 25000;
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(9900, 10200);
+            GameController2048.moveCount = 350;
         }
 
 
@@ -774,7 +775,7 @@ public class OrderSystenManager : MonoBehaviour
         }
         else if (day == 2 || day == 3)
         {
-            orderLevel = 1;
+            orderLevel = 0;
             OrderCount();
             //dayCount = Random.Range(2, 4);
             //다음 일차로 넘어가기 위해 받아야 하는 손님의 수를 2~3 사이에서 랜덤으로 설정
@@ -782,47 +783,47 @@ public class OrderSystenManager : MonoBehaviour
         }
         else if (day == 4 || day == 5)
         {
-            orderLevel = 2;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 5 || day == 6)
         {
-            orderLevel = 3;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 7 || day == 8)
         {
-            orderLevel = 4;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 9)
         {
-            orderLevel = 5;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 10)
         {
-            orderLevel = 6;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 11)
         {
-            orderLevel = 7;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 12)
         {
-            orderLevel = 8;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 13)
         {
-            orderLevel = 9;
+            orderLevel = 0;
             OrderCount();
         }
         else if (day == 14)
         {
-            orderLevel = 10;
+            orderLevel = 0;
             OrderCount();
         }
     }
