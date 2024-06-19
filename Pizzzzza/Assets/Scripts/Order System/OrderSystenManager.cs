@@ -19,7 +19,7 @@ public class OrderSystenManager : MonoBehaviour
 
     public float CustomerAppearTime;        // 손님 등장 시간 랜덤
 
-    public static int changePizzaSize = 3;  //5x5가 적용되는 일차
+    public static int changePizzaSize = 2;  //5x5가 적용되는 일차
     
     public static float star;     //가게의 평점
 
@@ -415,15 +415,15 @@ public class OrderSystenManager : MonoBehaviour
 
     void PizzaRecipe()      //피자 메뉴 설정
     {
-        if (day <= 2)
+        if (day < 3)
         {
             pizzaNumber = 0;
         }
-        else if (day >= 3 && day <= 6)  //일차가 3보타 크거나 같고 6보다 작거나 같다
+        else if (day >= 3 && day <= 4)  //일차가 2보타 크거나 같고 4보다 작거나 같다
         {
             pizzaNumber = Random.Range(0, 2); //0,1번 피자 중 랜덤 생성
         }
-        else if (day >= 7 && day <= 10)  //일차가 6보타 크거나 같고 9보다 작거나 같다
+        else if (day >= 5 && day <= 7)  //일차가 5보타 크거나 같고 7보다 작거나 같다
         {
             pizzaNumber = Random.Range(0, 3); //0~2번 피자 중 랜덤 생성
         }
@@ -704,41 +704,21 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 5)
         {
-            orderValue = Random.Range(2200, 2300);
-            GameController2048.moveCount = 200;
+            orderValue = Random.Range(2500, 2700);
+            GameController2048.moveCount = 230;
         }
 
         else if (orderLevel == 6)
         {
-            orderValue = Random.Range(3800, 4000);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(2900, 3000);
+            GameController2048.moveCount = 260;
         }
 
         else if (orderLevel == 7)
         {
-            orderValue = Random.Range(15000, 17000);
-            GameController2048.moveCount = 250;
+            orderValue = 3500;
+            GameController2048.moveCount = 300;
         }
-
-        else if (orderLevel == 8)
-        {
-            orderValue = Random.Range(18000, 20000);
-            GameController2048.moveCount = 250;
-        }
-
-        else if (orderLevel == 9)
-        {
-            orderValue = Random.Range(21000, 23000);
-            GameController2048.moveCount = 250;
-        }
-
-        else if (orderLevel == 10)
-        {
-            orderValue = 25000;
-            GameController2048.moveCount = 250;
-        }
-
-
     }
 
     void OrderCount()
@@ -785,46 +765,30 @@ public class OrderSystenManager : MonoBehaviour
             orderLevel = 2;
             OrderCount();
         }
-        else if (day == 5 || day == 6)
+        else if (day == 6 || day == 7)
         {
             orderLevel = 3;
             OrderCount();
         }
-        else if (day == 7 || day == 8)
+        else if (day == 8 || day == 9)
         {
             orderLevel = 4;
             OrderCount();
         }
-        else if (day == 9)
+        else if (day == 10 || day == 11)
         {
             orderLevel = 5;
             OrderCount();
         }
-        else if (day == 10)
+        else if (day == 12 || day == 13)
         {
             orderLevel = 6;
             OrderCount();
         }
-        else if (day == 11)
+        else if (day == 14)
         {
             orderLevel = 7;
             OrderCount();
         }
-        else if (day == 12)
-        {
-            orderLevel = 8;
-            OrderCount();
-        }
-        else if (day == 13)
-        {
-            orderLevel = 9;
-            OrderCount();
-        }
-        else if (day == 14)
-        {
-            orderLevel = 10;
-            OrderCount();
-        }
     }
-
 }
