@@ -847,21 +847,21 @@ MonoBehaviour:
     volume: 0.6
     pitch: 1
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -145451224731778702, guid: 57356b246af04ed4b9bfa731fbd9489b, type: 2}
     sources: {fileID: 0}
   - name: Butten_4
     clip: {fileID: 8300000, guid: 29247d6ab52da5b45a755f796f5cc157, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -145451224731778702, guid: 57356b246af04ed4b9bfa731fbd9489b, type: 2}
     sources: {fileID: 0}
   - name: Butten_Drop
     clip: {fileID: 8300000, guid: 64fdd70521a65a34fb1ac193409b9470, type: 3}
     volume: 0.6
     pitch: 1
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -145451224731778702, guid: 57356b246af04ed4b9bfa731fbd9489b, type: 2}
     sources: {fileID: 0}
   - name: Receipt Printing
     clip: {fileID: 8300000, guid: ee157d201038265478458cdc04242b91, type: 3}
@@ -888,6 +888,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9f0dcb33a0d77cf4c88f6d7730ca0f06, type: 3}
     volume: 1
     pitch: 1.2
+    loop: 0
+    mixerGroup: {fileID: -145451224731778702, guid: 57356b246af04ed4b9bfa731fbd9489b, type: 2}
+    sources: {fileID: 0}
+  - name: NewEvent
+    clip: {fileID: 8300000, guid: 6b8652342609c694cbcf8ec84119f792, type: 3}
+    volume: 1
+    pitch: 1
     loop: 0
     mixerGroup: {fileID: -145451224731778702, guid: 57356b246af04ed4b9bfa731fbd9489b, type: 2}
     sources: {fileID: 0}
