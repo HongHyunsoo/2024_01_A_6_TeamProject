@@ -17,7 +17,7 @@ public class OrderSystenManager : MonoBehaviour
     public static int customerNumber;      //손님의 번호
     public static int pizzaNumber;         //피자 메뉴 번호
 
-    public static int changePizzaSize = 3;  //5x5가 적용되는 일차
+    public static int changePizzaSize = 1;  //5x5가 적용되는 일차
     
 
     public static float star;     //가게의 평점
@@ -609,65 +609,48 @@ public class OrderSystenManager : MonoBehaviour
         if (orderLevel == 0)      //만약 orderLevel이 0이면
         {
             orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
-            GameController2048.moveCount = 7000;
+            GameController2048.moveCount = 70;
             
         }
 
         else if (orderLevel == 1)
         {
-            orderValue = Random.Range(700, 1000);
+            orderValue = Random.Range(900, 1000);
             GameController2048.moveCount = 110;
         }
 
         else if (orderLevel == 2)
         {
-            orderValue = Random.Range(1000, 1500);
-            GameController2048.moveCount = 250;
+            orderValue = Random.Range(1300, 1500);
+            GameController2048.moveCount = 160;
         }
 
         else if (orderLevel == 3)
         {
-            orderValue = Random.Range(2000, 2500);
-            GameController2048.moveCount = 300;
+            orderValue = Random.Range(1500, 1700);
+            GameController2048.moveCount = 170;
         }
 
         else if (orderLevel == 4)
         {
-            orderValue = Random.Range(4000, 5000);
-            GameController2048.moveCount = 500;
+            orderValue = Random.Range(1900, 2100);
+            GameController2048.moveCount = 190;
         }
 
         else if (orderLevel == 5)
         {
-            orderValue = Random.Range(8000, 10000);
+            orderValue = Random.Range(2500, 2700);
         }
 
         else if (orderLevel == 6)
         {
-            orderValue = Random.Range(12000, 14000);
+            orderValue = Random.Range(2900, 3000);
         }
 
         else if (orderLevel == 7)
         {
-            orderValue = Random.Range(15000, 17000);
+            orderValue = 3500;
         }
-
-        else if (orderLevel == 8)
-        {
-            orderValue = Random.Range(18000, 20000);
-        }
-
-        else if (orderLevel == 9)
-        {
-            orderValue = Random.Range(21000, 23000);
-        }
-
-        else if (orderLevel == 10)
-        {
-            orderValue = 25000;
-        }
-
-
     }
 
     void OrderCount()
