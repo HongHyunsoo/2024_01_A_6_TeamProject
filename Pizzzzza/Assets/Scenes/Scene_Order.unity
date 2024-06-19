@@ -1594,7 +1594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -947}
+  m_AnchoredPosition: {x: 700, y: -952}
   m_SizeDelta: {x: 378, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &220109227
@@ -6140,6 +6140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929d42bc199bfed48b37f66a8dd3099e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CustomerAppearTime: 0
   orderGroup: {fileID: 902247146}
   orderButten: {fileID: 1063423345}
   customerGroup: {fileID: 902247146}
