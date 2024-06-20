@@ -235,19 +235,11 @@ public class OrderSystenManager : MonoBehaviour
 
             nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
         }
-        else if (day == 7)
+        else if (day == 5)
         {
             SoundManager.instance.PlaySound("NewEvent");
             NewEventNumber = 1;
             NewEventGroup[1].SetActive(true);
-
-            nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
-        }
-        else if (day == 11)
-        {
-            SoundManager.instance.PlaySound("NewEvent");
-            NewEventNumber = 2;
-            NewEventGroup[2].SetActive(true);
 
             nextDayGroup.SetActive(false);  //다음 일차UI그룹 비활성화
         }
@@ -553,6 +545,7 @@ public class OrderSystenManager : MonoBehaviour
         { 
           "Just 피자", //0
           "오징어 먹물 피자",
+          "이탈리안 피자"
         };
 
     public static string[] customerName = //손님 이름 배열
