@@ -415,7 +415,7 @@ public class OrderSystenManager : MonoBehaviour
         {
             pizzaNumber = Random.Range(0, 2); //0,1번 피자 중 랜덤 생성
         }
-        else if (day >= 5 && day <= 8)  //일차가 5보타 크거나 같고 7보다 작거나 같다
+        else if (day >= 5 && day <= 7)  //일차가 5보타 크거나 같고 7보다 작거나 같다
         {
             pizzaNumber = Random.Range(0, 3); //0~2번 피자 중 랜덤 생성
         }
@@ -685,27 +685,23 @@ public class OrderSystenManager : MonoBehaviour
 
         else if (orderLevel == 3)
         {
-            orderValue = Random.Range(1500, 1700);
-            GameController2048.moveCount = 170;
-        }
-
-        else if (orderLevel == 4)
-        {
             orderValue = Random.Range(1900, 2100);
             GameController2048.moveCount = 190;
         }
 
-        else if (orderLevel == 5)
+        else if (orderLevel == 4)
         {
             orderValue = Random.Range(2500, 2700);
+            GameController2048.moveCount = 230;
+        }
+
+        else if (orderLevel == 5)
+        {
+            orderValue = Random.Range(2900, 3000);
+            GameController2048.moveCount = 260;
         }
 
         else if (orderLevel == 6)
-        {
-            orderValue = Random.Range(2900, 3000);
-        }
-
-        else if (orderLevel == 7)
         {
             orderValue = 3500;
         }
@@ -742,7 +738,7 @@ public class OrderSystenManager : MonoBehaviour
             orderLevel = 0; //주문 난이도를 0으로
             dayCount = 2;
         }
-        else if (day == 2 || day == 3)
+        else if (day == 2 )
         {
             orderLevel = 1;
             OrderCount();
@@ -750,34 +746,29 @@ public class OrderSystenManager : MonoBehaviour
             //다음 일차로 넘어가기 위해 받아야 하는 손님의 수를 2~3 사이에서 랜덤으로 설정
 
         }
-        else if (day == 4 || day == 5)
+        else if (day == 3)
         {
             orderLevel = 2;
             OrderCount();
         }
-        else if (day == 6 || day == 7)
+        else if (day == 4)
         {
             orderLevel = 3;
             OrderCount();
         }
-        else if (day == 8 || day == 9)
+        else if (day == 5)
         {
             orderLevel = 4;
             OrderCount();
         }
-        else if (day == 10 || day == 11)
+        else if (day == 6)
         {
             orderLevel = 5;
             OrderCount();
         }
-        else if (day == 12 || day == 13)
+        else if (day == 7)
         {
             orderLevel = 6;
-            OrderCount();
-        }
-        else if (day == 14)
-        {
-            orderLevel = 7;
             OrderCount();
         }
     }
