@@ -415,7 +415,7 @@ public class OrderSystenManager : MonoBehaviour
         {
             pizzaNumber = Random.Range(0, 2); //0,1번 피자 중 랜덤 생성
         }
-        else if (day >= 5 && day <= 7)  //일차가 5보타 크거나 같고 7보다 작거나 같다
+        else if (day >= 5 && day <= 8)  //일차가 5보타 크거나 같고 7보다 작거나 같다
         {
             pizzaNumber = Random.Range(0, 3); //0~2번 피자 중 랜덤 생성
         }
@@ -668,7 +668,7 @@ public class OrderSystenManager : MonoBehaviour
         {
             orderValue = Random.Range(400, 500);     //100~500사이에서 렌덤으로 주문 할 피자 값어치를 정한다
             GameController2048.moveCount = 70;
-            
+
         }
 
         else if (orderLevel == 1)
@@ -698,19 +698,16 @@ public class OrderSystenManager : MonoBehaviour
         else if (orderLevel == 5)
         {
             orderValue = Random.Range(2500, 2700);
-            GameController2048.moveCount = 230;
         }
 
         else if (orderLevel == 6)
         {
             orderValue = Random.Range(2900, 3000);
-            GameController2048.moveCount = 260;
         }
 
         else if (orderLevel == 7)
         {
             orderValue = 3500;
-            GameController2048.moveCount = 300;
         }
     }
 
